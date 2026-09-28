@@ -1,14 +1,35 @@
 # CodeGuard AI
 
-CodeGuard AI is a local research application for inspecting AI-generated Python answers through static checks, optional isolated execution, and evidence-aware explanation analysis.
+CodeGuard AI is a local research project for checking AI-generated Python answers.
 
-> **Status:** Active research and development. This project is not production-ready and does not provide a guarantee of code safety or factual correctness.
+The idea is fairly simple: instead of only looking at whether a piece of Python code is valid, CodeGuard looks at different parts of an AI answer separately. It can check the code, run it in a restricted Docker environment, test functions, look at possible risks, and inspect some of the claims made in the explanation.
 
-## What It Does
+It is still an active research/development project, so it should not be treated as a production security tool or as a guarantee that an answer is correct.
 
-CodeGuard extracts Python code and explanation text from an answer, checks syntax and selected risk patterns, can run code and user-supplied function tests inside Docker, compares saved responses, and analyzes a limited set of explanation claims against a small curated Python documentation corpus. It can optionally request an answer from the OpenAI Responses API.
+## What can CodeGuard do?
 
-## Architecture
+A user can paste a coding question and an AI-generated answer into the application.
+
+CodeGuard can then:
+
+- extract Python code and explanation text from the answer
+- check the Python code with AST-based validation
+- look for selected risky operations
+- run the code inside Docker when Docker integration is enabled
+- run user-provided function tests
+- keep evaluation results in a local SQLite database
+- compare saved responses
+- extract a limited set of explanation claims
+- search a small curated collection of official Python documentation
+- compare some claims with the retrieved evidence
+- optionally get an answer through the OpenAI Responses API
+- show the different results together in a Streamlit dashboard
+
+The checks are kept as separate signals. A successful execution, for example, does not automatically mean that the explanation is correct.
+
+## How it is put together
+
+The main pieces of the project are connected roughly like this:
 
 ```mermaid
 flowchart LR
@@ -24,47 +45,83 @@ flowchart LR
     P[Phase 17 model] --> M
 ```
 
-The frontend coordinates user workflows and displays results. Application modules, evidence retrieval, execution, persistence, and ML inference live in the installable `codeguard` package under `backend/src/`.
+The Streamlit app handles the user-facing part. The actual CodeGuard logic is kept in the `codeguard` package under `backend/src/`.
 
-## Project Structure
+## Project structure
 
 ```text
-frontend/       Streamlit application entry point
-backend/src/    Installable CodeGuard application package
-  codeguard/    Analysis, execution, evidence, storage, reports, and ML modules
-tests/          Unit, integration, Docker, and Phase 18 tests
-data/           Local state, source data, processed datasets, and metadata
-models/         Phase 17 and claim-verifier model artifacts
-scripts/        Dataset download and reproducible training workflows
-docs/           Architecture, phase history, research, and demo guides
-reports/        Machine-readable results and generated figures
+frontend/       Streamlit application
+backend/src/    Main CodeGuard package
+  codeguard/    Analysis, execution, evidence, storage, reports, and ML
+tests/          Unit, integration, Docker, and demo tests
+data/           Datasets, local data, and metadata
+models/         Trained model files and model information
+scripts/        Dataset and training scripts
+docs/           Architecture, research, phase reports, and demo guides
+reports/        Example results and generated figures
 ```
 
-## Features
+## A few important details
 
-- Manual response entry works without an API key.
-- Python fence extraction, AST syntax validation, and selected static risk checks.
-- Docker-backed code execution and function tests; there is no host-execution fallback.
-- Local TF-IDF retrieval over a small curated corpus derived from official Python documentation, with source evidence and URLs.
-- Conservative claim extraction and narrow proposition rules; similarity alone does not establish support or contradiction.
-- SQLite-backed evaluation history, comparisons, and descriptive JSON reliability reports.
-- Dataset review tools distinguish proposed labels from independent review and adjudication.
+### Code execution
 
-## ML Component
+CodeGuard does not fall back to running submitted code directly on the host.
 
-Phase 17 provides an auxiliary regressor for the upstream `pass_rate` target on a bounded NVIDIA OpenCodeReasoning-2 Python sample. It is not trained on CodeGuard claim labels and does not prove general code correctness or safety. The smaller synthetic claim-verifier pilot is another advisory signal, not documentary evidence. See [the model card](docs/research/MODEL_CARD.md) and [Phase 17 research](docs/research/PHASE_17_DATASET_RESEARCH.md).
+When Docker-backed execution is used, the runner is configured with restrictions such as:
 
-## Docker Sandbox
+- networking disabled
+- read-only root filesystem
+- non-root user/group (`65534:65534`)
+- 128 MiB memory limit
+- 0.5 CPU limit
+- 32-process limit
+- execution timeouts
+- output limits
 
-Submitted code runs only in Docker with networking disabled, a read-only root filesystem, user/group `65534:65534`, 128 MiB memory, 0.5 CPU, a 32-process limit, timeout controls, and output limits. These restrictions reduce risk but do not make the runner a production-grade security boundary. Do not expose this local application as a public code-execution service.
+These restrictions are intended to reduce risk during local testing. They are **not** a claim that Docker is a perfect or production-grade security boundary. This project should not be exposed as a public code-execution service.
 
-## Dataset
+### Explanation and evidence
 
-Raw Phase 17 Parquet shards are not committed. The repository preserves dataset revision, source, license notes, download metadata, and reproduction instructions in [data/README.md](data/README.md). The Phase 17 dataset is an auxiliary execution pass-rate source, not a human-labeled claim-verification corpus. Earlier research datasets are primarily synthetic and some labels remain pending review.
+CodeGuard also looks at the explanation that comes with the generated code.
 
-## Installation
+For this part, it uses a small curated corpus based on official Python documentation. It uses retrieval and a set of narrow claim rules to check whether some extracted claims have supporting or contradicting evidence.
 
-Python 3.10 or newer is required. Docker Desktop with its Linux engine is needed for isolated execution.
+Retrieval similarity by itself is not treated as proof of truth. If the system cannot establish a claim from the available evidence, it should not pretend that it has.
+
+## Machine learning part
+
+There are a couple of ML-related experiments in the project.
+
+The Phase 17 model is an auxiliary regressor trained on a bounded Python sample from NVIDIA OpenCodeReasoning-2. Its target is the source dataset's `pass_rate`.
+
+That model is **not** a CodeGuard claim-verification model, and its prediction should not be interpreted as a general code-correctness or safety score.
+
+There is also a smaller synthetic claim-verifier experiment. That is an additional signal for the research work, not a replacement for documentary evidence.
+
+More details are available in:
+
+- `docs/research/MODEL_CARD.md`
+- `docs/research/PHASE_17_DATASET_RESEARCH.md`
+
+## Dataset notes
+
+The large raw Phase 17 Parquet files are intentionally not committed to the repository.
+
+The repository keeps the dataset revision, source information, license notes, download metadata, and reproduction instructions instead.
+
+The Phase 17 dataset is being used as an auxiliary execution/pass-rate source. It is **not** a human-labelled dataset for CodeGuard's claim-verification labels.
+
+Some of the earlier research datasets are synthetic, and some proposed labels are still waiting for independent review.
+
+See `data/README.md` for the dataset details.
+
+## Running the project locally
+
+You need Python 3.10 or newer.
+
+Docker Desktop with its Linux engine is needed for the isolated execution features.
+
+Create a virtual environment:
 
 ```powershell
 py -m venv .venv
@@ -72,15 +129,27 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-For development and the test suite, install `requirements-dev.txt` as well:
+For development and testing, also install:
 
 ```powershell
 python -m pip install -r requirements-dev.txt
 ```
 
-Copy `.env.example` to `.env` and set `OPENAI_API_KEY` only if you intend to use the optional provider. API calls can incur charges. The application reads keys from the process environment; `.env` loading is not automatic.
+### Optional OpenAI provider
 
-## Running Locally
+The OpenAI integration is optional.
+
+If you want to use it, copy `.env.example` to `.env` and set:
+
+```text
+OPENAI_API_KEY=your_key_here
+```
+
+The application reads the key from the process environment. `.env` loading is not automatic, so configure the environment accordingly.
+
+API usage can also incur charges.
+
+## Start the application
 
 From the repository root:
 
@@ -88,21 +157,27 @@ From the repository root:
 python -m streamlit run frontend/app.py
 ```
 
-Open the local address printed by Streamlit, normally [http://localhost:8501](http://localhost:8501). Pull the execution image once if you intend to use Docker-backed features:
+Streamlit will print the local address, normally:
+
+```text
+http://localhost:8501
+```
+
+If you want to use the Docker-backed execution features, make sure the execution image is available:
 
 ```powershell
 docker pull python:3.12-slim
 ```
 
-## Testing
+## Running the tests
 
-Run the full discovered suite from the repository root:
+The normal test suite can be run with:
 
 ```powershell
 python -m pytest
 ```
 
-Docker integration tests require a running Docker engine and can be enabled with:
+Docker integration tests need a running Docker engine and are enabled explicitly:
 
 ```powershell
 $env:CODEGUARD_DOCKER_INTEGRATION = "1"
@@ -111,24 +186,55 @@ python -m pytest tests/docker
 
 ## Demo
 
-See [the demo guide](docs/demo/DEMO_GUIDE.md) and [Phase 18 demo cases](docs/demo/PHASE_18_DEMO_CASES.md). Machine-readable example outputs are under `reports/phase18/`.
+There are a few prepared examples showing different kinds of answers and failure cases.
 
-## Current Status
+Start with:
 
-The application and research workflows are under active development. Phase history and known project status are recorded in [the progress log](docs/phases/PROJECT_PROGRESS.md). Model metrics reflect the documented datasets and evaluation procedures only; they should not be treated as production performance estimates.
+- `docs/demo/DEMO_GUIDE.md`
+- `docs/demo/PHASE_18_DEMO_CASES.md`
 
-## Known Limitations
+Example machine-readable results are available in:
 
-- Explanation verification recognizes a narrow set of claim patterns and corpus facts.
-- Retrieval can miss relevant evidence; retrieved similarity is not a truth score.
-- The ML datasets are small or domain-specific, and the Phase 17 target is an upstream automated benchmark value.
-- Docker isolation and the host kernel can contain vulnerabilities.
-- Local SQLite files may contain sensitive prompts and responses.
+```text
+reports/phase18/
+```
 
-## Future Work
+## Current state
 
-Improve human-reviewed claim data and independent evaluation, broaden evidence coverage, strengthen reproducibility, and continue evaluating sandbox behavior without weakening the existing execution restrictions.
+CodeGuard is still being developed.
+
+The project has separate phase reports documenting the work done so far, including the dataset experiments, demo cases, and unified reporting work. The main progress log is:
+
+`docs/phases/PROJECT_PROGRESS.md`
+
+The ML numbers reported in this repository describe the particular datasets and evaluation procedures used in those experiments. They should not be read as production performance estimates.
+
+## Known limitations
+
+There are still several limitations:
+
+- explanation verification currently covers only a relatively small set of claim patterns and documentation facts
+- retrieval can miss useful evidence
+- retrieval similarity is not a truth score
+- the ML datasets are small or specific to their source domains
+- the Phase 17 target comes from an upstream automated benchmark rather than human labels
+- Docker and the host kernel can still contain vulnerabilities
+- local SQLite files can contain prompts and generated responses that may be sensitive
+
+## What is next?
+
+The main areas for further work are:
+
+- getting more human-reviewed claim data
+- evaluating the system independently
+- expanding the evidence coverage
+- improving reproducibility
+- continuing to test the execution restrictions and sandbox behaviour
+
+The goal is to improve the evaluation system without weakening the existing execution restrictions.
 
 ## License
 
-No project license file was present in the supplied repository, so no project reuse license is asserted here. Dataset and upstream source licenses continue to apply independently; see [the Phase 17 dataset notes](data/README.md).
+There is currently no project license file in the repository, so no project reuse license is claimed here.
+
+Dataset and upstream-source licenses still apply where relevant. See `data/README.md` for the Phase 17 dataset notes.
