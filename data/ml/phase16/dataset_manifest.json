@@ -1,0 +1,42 @@
+{
+  "dataset_name": "CodeGuard Phase 16 human-review preparation",
+  "version": "0.1.0",
+  "retrieval_date": "2026-09-26",
+  "public_data_acquired": false,
+  "public_datasets_used": [],
+  "source_urls": [
+    "https://arxiv.org/abs/2512.19424",
+    "https://aclanthology.org/2022.naacl-main.148/",
+    "https://sciclaimeval.github.io/",
+    "https://github.com/jadecxliu/CodeQA",
+    "https://github.com/Jun-jie-Huang/CoCLR",
+    "https://huggingface.co/datasets/koutch/staqc",
+    "https://conala-corpus.github.io/",
+    "https://github.com/github/CodeSearchNet",
+    "https://github.com/openai/human-eval",
+    "https://github.com/google-research/google-research/tree/master/mbpp",
+    "https://github.com/SWE-bench/SWE-bench",
+    "https://huggingface.co/datasets/cmalaviya/expertqa",
+    "https://huggingface.co/datasets/facebook/FACTORY",
+    "https://github.com/allenai/scifact",
+    "https://fever.ai/dataset/fever.html",
+    "https://github.com/openai/simple-evals",
+    "https://epoch.ai/benchmarks/simple-qa-verified",
+    "https://github.com/dwadden/scifact-open",
+    "https://aclanthology.org/2024.lrec-main.1143/"
+  ],
+  "phase15_source_facts_path": "data\\ml\\research_dataset\\raw\\source_facts.json",
+  "phase15_source_facts_sha256": "54d56c3f91380ab86eaac2d562aa166e713267cb64e5dcf6d6ec4b28cd1e5c33",
+  "source_version": "Python documentation stable /3/ URLs; source pages are not pinned to an immutable revision",
+  "transformation": "src/codeguard/ml/phase16.py; phase15 rows copied without relabeling; new public data not imported",
+  "random_seed": 15015,
+  "split_seed": 15015,
+  "filtering_rules": [
+    "Exclude any prior synthetic row without explicit source URL and evidence",
+    "Keep external candidate rows outside internal canonical/splits",
+    "All synthetic records stay pending until actual human review and adjudication",
+    "Never map incompatible public QA/code-search labels automatically"
+  ],
+  "license_policy": "Only source data with verified dataset-level redistribution rights may be copied; candidate-specific upstream licenses must be checked.",
+  "no_model_training": true
+}

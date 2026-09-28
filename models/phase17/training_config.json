@@ -1,0 +1,23 @@
+{
+  "seed": 1701,
+  "split": "70/15/15 two-stage GroupShuffleSplit over connected components of question_id and normalized exact code SHA-256",
+  "model_selection": "Lowest validation MAE",
+  "models": {
+    "dummy_mean": {},
+    "ridge_a1": {
+      "alpha": 1.0
+    },
+    "linear_svr_c0_1": {
+      "C": 0.1,
+      "max_iter": 5000,
+      "dual": "auto"
+    },
+    "extra_trees_numeric": {
+      "n_estimators": 120,
+      "min_samples_leaf": 3,
+      "max_features": 0.8,
+      "n_jobs": 1
+    }
+  },
+  "dataset_revision": "eadf535931451525f3e5621d0f960c240bc62fd9"
+}

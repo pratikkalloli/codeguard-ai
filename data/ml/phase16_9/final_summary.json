@@ -1,0 +1,30 @@
+{
+  "starting_candidates": 311,
+  "final_candidates": 389,
+  "new_candidates": 78,
+  "starting_facts": 205,
+  "final_facts": 205,
+  "measured_candidate_capacity": 389,
+  "internal": 193,
+  "external": 196,
+  "proposed_label_distribution_not_gold": {
+    "Supported": 188,
+    "Contradicted": 109,
+    "Insufficient Evidence": 92
+  },
+  "source_urls": 45,
+  "source_groups": 45,
+  "topics": 97,
+  "exact_duplicates_rejected": 0,
+  "near_duplicates_rejected": 0,
+  "quality_exclusions_phase16_9": 0,
+  "inherited_near_duplicate_pairs": 15,
+  "human_reviewed": 0,
+  "adjudicated": 0,
+  "gold_labelled": 0,
+  "review_records": 389,
+  "review_events": 0,
+  "adjudication_events": 0,
+  "phase17": "NOT READY",
+  "training_performed": false
+}

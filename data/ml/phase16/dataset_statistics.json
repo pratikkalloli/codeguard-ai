@@ -1,0 +1,73 @@
+{
+  "internal_records": 66,
+  "external_candidates": 6,
+  "proposal_class_distribution": {
+    "Contradicted": 28,
+    "Insufficient Evidence": 10,
+    "Supported": 28
+  },
+  "external_proposal_distribution": {
+    "Contradicted": 2,
+    "Insufficient Evidence": 2,
+    "Supported": 2
+  },
+  "topics": {
+    "built-ins": 8,
+    "built-ins and sorting": 4,
+    "collections and mutability": 4,
+    "collections and performance": 2,
+    "comprehensions": 2,
+    "data model": 6,
+    "dictionaries": 2,
+    "dictionaries and exceptions": 2,
+    "exceptions": 2,
+    "file handling and exceptions": 2,
+    "functions": 11,
+    "iteration": 7,
+    "loops": 5,
+    "pilot out-of-scope example": 4,
+    "range": 3,
+    "sequences": 2,
+    "sets": 2,
+    "strings": 4
+  },
+  "source_pages": 11,
+  "domains": [
+    "docs.python.org"
+  ],
+  "fact_keys": 41,
+  "evidence_groups": 11,
+  "source_page_distribution": {
+    "https://docs.python.org/3/tutorial/datastructures.html": 16,
+    "https://docs.python.org/3/library/functions.html#sorted": 4,
+    "https://docs.python.org/3/reference/compound_stmts.html#the-for-statement": 3,
+    "https://docs.python.org/3/reference/compound_stmts.html#function-definitions": 3,
+    "https://docs.python.org/3/tutorial/errors.html": 2,
+    "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files": 2,
+    "https://docs.python.org/3/tutorial/controlflow.html": 15,
+    "https://docs.python.org/3/tutorial/classes.html": 7,
+    "https://docs.python.org/3/library/stdtypes.html": 6,
+    "https://docs.python.org/3/library/functions.html": 8,
+    "https://docs.python.org/3/reference/datamodel.html": 6
+  },
+  "source_concentration_top_three": "https://docs.python.org/3/tutorial/datastructures.html (16), https://docs.python.org/3/tutorial/controlflow.html (15), https://docs.python.org/3/library/functions.html (8)",
+  "exact_duplicate_rate": 0.0,
+  "exact_duplicate_count": 0,
+  "normalized_claim_label_conflicts": 0,
+  "near_duplicate_pairs_ge_090": 15,
+  "near_duplicate_leakage_violations": 0,
+  "provenance_completeness_count": 72,
+  "provenance_incomplete_count": 0,
+  "source_group_split_violations": 0,
+  "external_page_or_fact_overlap_count": 0,
+  "inherited_phase15_split_sizes": {
+    "train": 47,
+    "test": 9,
+    "validation": 10
+  },
+  "reviewed_count": 0,
+  "pending_review_count": 72,
+  "rejected_count": 0,
+  "adjudicated_count": 0,
+  "review_agreement": "Unavailable: no real reviews exist."
+}

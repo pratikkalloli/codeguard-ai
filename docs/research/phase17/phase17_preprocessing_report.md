@@ -1,0 +1,65 @@
+# Phase 17 preprocessing report
+
+{
+  "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python)",
+  "dataset_revision": "eadf535931451525f3e5621d0f960c240bc62fd9",
+  "target": "execution-derived pass_rate regression; no mapping to CodeGuard labels",
+  "input_fields_used": [
+    "id",
+    "question_id",
+    "solution",
+    "pass_rate",
+    "judgement",
+    "source",
+    "license",
+    "dataset",
+    "split",
+    "difficulty"
+  ],
+  "feature_inputs": [
+    "solution code",
+    "source",
+    "upstream dataset",
+    "difficulty"
+  ],
+  "excluded_fields_to_prevent_leakage": [
+    "pass_rate as feature",
+    "QwQ critique",
+    "generated right/wrong judgement",
+    "R1 explanation"
+  ],
+  "license_allowlist": [
+    "apache-2.0",
+    "cc-by-4.0",
+    "mit"
+  ],
+  "license_counts_before_filtering": {
+    "apache-2.0": 60000
+  },
+  "counts": {
+    "original_rows": 60000,
+    "syntax_invalid": 0,
+    "valid_rows": 53401,
+    "python_rows": 53401,
+    "excluded_invalid_pass_rate": 3688,
+    "duplicate_code_different_record": 53,
+    "excluded_exact_duplicate": 2909,
+    "excluded_missing_code": 2
+  },
+  "pass_rate_bins": {
+    "0.9\u20131.0": 3215,
+    "1.0\u20131.0": 32708,
+    "0.2\u20130.3": 1324,
+    "0.1\u20130.2": 1749,
+    "0.7\u20130.8": 1648,
+    "0.4\u20130.5": 1239,
+    "0.8\u20130.9": 1894,
+    "0.0\u20130.1": 5763,
+    "0.3\u20130.4": 1166,
+    "0.6\u20130.7": 1468,
+    "0.5\u20130.6": 1227
+  },
+  "exact_code_hash_groups": 53348,
+  "near_duplicate_detection": "Not run: corpus-level semantic matching is beyond this bounded preprocessing run; question groups and exact normalized-code hashes are retained for split control.",
+  "processed_file": "C:\\codex\\data\\processed\\phase17_records.jsonl"
+}

@@ -1,0 +1,21 @@
+# Data dictionary
+
+- `id`: Stable row identifier.
+- `claim`: Claim being checked.
+- `evidence`: Evidence passage presented to adjudicate the claim.
+- `label`: Evidence-relative three-way label.
+- `data_origin`: public, manually_verified, or synthetic; current records are synthetic.
+- `source_name`: Publisher/source label.
+- `source_url`: Canonical source page URL.
+- `source_record_id`: Stable local source proposition identifier.
+- `license`: Applicable source license/attribution.
+- `topic`: Programming topic.
+- `language`: Programming language.
+- `fact_key`: Proposition key.
+- `evidence_group`: Group used to prevent leakage across splits.
+- `provenance`: How this record was constructed.
+- `verification_status`: Current verification/review state.
+- `source_title`: Documentation title.
+- `source_section`: Relevant section.
+- `claim_family`: Related polarity or IE family.
+- `review_status`: Expert review state.

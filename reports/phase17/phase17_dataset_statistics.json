@@ -1,0 +1,51 @@
+{
+  "total_downloaded_rows": 60000,
+  "valid_rows": 53401,
+  "invalid_rows": 6599,
+  "python_rows": 53401,
+  "non_python_rows": 0,
+  "missing_values": {
+    "target": 3688,
+    "code": 2
+  },
+  "duplicate_rows_removed": 2909,
+  "license_counts": {
+    "apache-2.0": 60000
+  },
+  "source_distribution": {
+    "codeforces": 31063,
+    "aizu": 8664,
+    "hackerearth": 5425,
+    "atcoder": 5136,
+    "codechef": 3113
+  },
+  "upstream_dataset_distribution": {
+    "taco": 31639,
+    "code_contests": 14270,
+    "apps": 7492
+  },
+  "target_distribution": {
+    "0.9\u20131.0": 3215,
+    "1.0\u20131.0": 32708,
+    "0.2\u20130.3": 1324,
+    "0.1\u20130.2": 1749,
+    "0.7\u20130.8": 1648,
+    "0.4\u20130.5": 1239,
+    "0.8\u20130.9": 1894,
+    "0.0\u20130.1": 5763,
+    "0.3\u20130.4": 1166,
+    "0.6\u20130.7": 1468,
+    "0.5\u20130.6": 1227
+  },
+  "average_code_chars": 1002.8078125877793,
+  "average_code_words": 131.55118817999664,
+  "average_code_lines": 37.474878747588996,
+  "average_explanation_length": null,
+  "explanation": "Generated rationale fields are not retained or used as model features; the published question field is a placeholder in this split.",
+  "malformed_python_syntax": 0,
+  "unsafe_examples": "Not executed; dangerous API mentions counted only as static text features.",
+  "dangerous_api_mention_rows": 10,
+  "records_without_usable_code_or_target": 6599,
+  "exact_duplicate_rate": 0.04848333333333334,
+  "near_duplicate_rate": null
+}

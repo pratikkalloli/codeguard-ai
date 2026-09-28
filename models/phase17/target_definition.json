@@ -1,0 +1,12 @@
+{
+  "target": "pass_rate",
+  "type": "regression",
+  "range": [
+    0.0,
+    1.0
+  ],
+  "source": "NVIDIA OpenCodeReasoning-2 upstream field; source pass-rate derived from provided execution/test process",
+  "binary_reporting_threshold": 0.5,
+  "binary_threshold_is_original_label": false,
+  "codeguard_label_mapping": null
+}

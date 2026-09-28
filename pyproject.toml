@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codeguard-ai"
+version = "0.1.0"
+description = "A local research application for inspecting AI-generated Python answers"
+requires-python = ">=3.10"
+dependencies = [
+  "streamlit",
+  "scikit-learn>=1.6",
+  "matplotlib>=3.9",
+  "joblib>=1.4",
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "pandas>=2.0",
+  "pyarrow>=14.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["backend/src"]
+include = ["codeguard*"]
+
+[tool.setuptools.package-data]
+codeguard = ["corpus/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["backend/src"]
+
+[tool.ruff]
+line-length = 100

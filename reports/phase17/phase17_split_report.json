@@ -1,0 +1,27 @@
+{
+  "seed": 1701,
+  "strategy": "70/15/15 two-stage GroupShuffleSplit over connected components of question_id and normalized exact code SHA-256",
+  "counts": {
+    "train": 37365,
+    "validation": 8144,
+    "test": 7892
+  },
+  "group_counts": {
+    "train": 7393,
+    "validation": 1578,
+    "test": 1592
+  },
+  "overlaps": {
+    "question_id": {
+      "train:validation": 0,
+      "train:test": 0,
+      "validation:test": 0
+    },
+    "normalized_code_sha256": {
+      "train:validation": 0,
+      "train:test": 0,
+      "validation:test": 0
+    }
+  },
+  "near_duplicate_policy": "Exact normalized code and question groups are held together. Semantic near-duplicate analysis is not claimed."
+}

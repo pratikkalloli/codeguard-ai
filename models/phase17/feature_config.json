@@ -1,0 +1,39 @@
+{
+  "text_vectorizer": {
+    "field": "code",
+    "analyzer": "word",
+    "ngram_range": [
+      1,
+      2
+    ],
+    "min_df": 2,
+    "max_features": 50000,
+    "sublinear_tf": true
+  },
+  "categorical_fields": [
+    "source",
+    "dataset",
+    "difficulty"
+  ],
+  "numeric_fields": [
+    "code_chars",
+    "code_lines",
+    "dangerous_api_mentions",
+    "syntax_valid",
+    "ast_nodes",
+    "functions",
+    "classes",
+    "imports",
+    "loops",
+    "branches",
+    "try_blocks",
+    "comprehensions"
+  ],
+  "excluded_fields": [
+    "pass_rate",
+    "judgement",
+    "qwq_critique",
+    "r1_generation",
+    "question"
+  ]
+}

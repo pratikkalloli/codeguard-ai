@@ -1,0 +1,32 @@
+{
+  "inventory_fact_count": 205,
+  "facts_with_existing_candidates": 127,
+  "facts_without_candidates": 78,
+  "facts_observed_with_1_candidate": 12,
+  "facts_observed_with_2_candidates": 47,
+  "facts_observed_with_3_candidates": 67,
+  "facts_observed_with_4_or_more_candidates": 1,
+  "facts_with_1_distinct_proposed_label": 12,
+  "facts_with_2_distinct_proposed_labels": 48,
+  "facts_with_3_distinct_proposed_labels": 67,
+  "existing_candidate_count": 311,
+  "new_supported_candidates_passing_dry_run": 78,
+  "dry_run_quality_exclusions": 0,
+  "measured_capacity_with_dry_run_additions": 389,
+  "expected_internal_capacity": 193,
+  "expected_external_capacity": 196,
+  "observed_candidate_count_distribution_per_fact": {
+    "1": 12,
+    "2": 47,
+    "3": 67,
+    "4": 1
+  },
+  "capacity_facts_exactly_1_candidate": 90,
+  "capacity_facts_exactly_2_candidates": 47,
+  "capacity_facts_exactly_3_candidates": 67,
+  "capacity_facts_4_or_more_candidates": 1,
+  "capacity_facts_at_least_1_candidate": 205,
+  "capacity_facts_at_least_2_candidates": 115,
+  "capacity_facts_at_least_3_candidates": 68,
+  "capacity_method": "Observed candidate counts for the 127 represented facts; one supported canonical claim dry-run for each of 78 uncovered facts. No unsupported contradicted or IE capacity assumed."
+}

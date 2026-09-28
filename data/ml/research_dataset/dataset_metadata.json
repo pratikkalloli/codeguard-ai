@@ -1,0 +1,170 @@
+{
+  "dataset_name": "CodeGuard AI programming claim-evidence research dataset",
+  "version": "0.1.0",
+  "seed": 15015,
+  "total_records": 66,
+  "external_test_records": 6,
+  "label_set": [
+    "Contradicted",
+    "Insufficient Evidence",
+    "Supported"
+  ],
+  "records_per_class": {
+    "Contradicted": 28,
+    "Insufficient Evidence": 10,
+    "Supported": 28
+  },
+  "records_per_topic": {
+    "built-ins": 8,
+    "built-ins and sorting": 4,
+    "collections and mutability": 4,
+    "collections and performance": 2,
+    "comprehensions": 2,
+    "dictionaries": 2,
+    "dictionaries and exceptions": 2,
+    "exceptions": 2,
+    "file handling and exceptions": 2,
+    "functions": 11,
+    "iteration": 7,
+    "loops": 5,
+    "pilot out-of-scope example": 4,
+    "range": 3,
+    "sequences": 2,
+    "sets": 2,
+    "strings": 4
+  },
+  "records_per_origin": {
+    "synthetic": 66
+  },
+  "split_sizes": {
+    "train": 47,
+    "validation": 10,
+    "test": 9
+  },
+  "split_class_distribution": {
+    "train": {
+      "Contradicted": 20,
+      "Insufficient Evidence": 7,
+      "Supported": 20
+    },
+    "validation": {
+      "Contradicted": 4,
+      "Insufficient Evidence": 2,
+      "Supported": 4
+    },
+    "test": {
+      "Contradicted": 4,
+      "Insufficient Evidence": 1,
+      "Supported": 4
+    }
+  },
+  "external_class_distribution": {
+    "Contradicted": 2,
+    "Insufficient Evidence": 2,
+    "Supported": 2
+  },
+  "split_method": "Seeded randomized grouped holdout by complete official documentation URL; all labels required in each internal split.",
+  "group_key": "evidence_group (entire source URL)",
+  "external_isolation": "Python Data Model reference page is excluded from all internal partitions.",
+  "human_verified_records": 0,
+  "manual_review_required": true,
+  "ready_for_model_training": false,
+  "quality": {
+    "exact_duplicate_count": 0,
+    "normalized_claim_label_conflicts": 0,
+    "near_duplicate_pair_count": 13,
+    "near_duplicate_pairs": [
+      {
+        "left_id": "cg-rd-0001",
+        "right_id": "cg-rd-0002",
+        "similarity": 0.9615,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0003",
+        "right_id": "cg-rd-0004",
+        "similarity": 0.963,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0005",
+        "right_id": "cg-rd-0006",
+        "similarity": 0.9278,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0009",
+        "right_id": "cg-rd-0010",
+        "similarity": 0.96,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0021",
+        "right_id": "cg-rd-0022",
+        "similarity": 0.9722,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0025",
+        "right_id": "cg-rd-0026",
+        "similarity": 0.9219,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0031",
+        "right_id": "cg-rd-0032",
+        "similarity": 0.931,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0037",
+        "right_id": "cg-rd-0038",
+        "similarity": 0.9552,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0039",
+        "right_id": "cg-rd-0040",
+        "similarity": 0.973,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0047",
+        "right_id": "cg-rd-0048",
+        "similarity": 0.9643,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0051",
+        "right_id": "cg-rd-0052",
+        "similarity": 0.9474,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0053",
+        "right_id": "cg-rd-0056",
+        "similarity": 0.9048,
+        "same_group": true
+      },
+      {
+        "left_id": "cg-rd-0054",
+        "right_id": "cg-rd-0055",
+        "similarity": 0.9091,
+        "same_group": true
+      }
+    ],
+    "all_rows_have_provenance": true,
+    "all_records_synthetic": true,
+    "source_group_leakage": false,
+    "external_source_overlap": false,
+    "source_less_legacy_records_excluded": 1
+  },
+  "limitations": [
+    "All records are synthetic wording and none has independent human expert verification.",
+    "No compatible programming-domain public dataset with claim, evidence and all three labels was identified for inclusion.",
+    "Labels are generated from short Python documentation excerpts; contradiction pairs are controlled and may be lexically easy.",
+    "Insufficient Evidence means only that the supplied excerpt does not establish the claim.",
+    "External test is page-held-out but synthetic, small, and not an independent human benchmark.",
+    "Source page grouping is conservative and can produce proportions unlike 70/15/15."
+  ]
+}

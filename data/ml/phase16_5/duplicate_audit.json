@@ -1,0 +1,114 @@
+{
+  "exact_normalized_claim_duplicates": 0,
+  "near_duplicate_pairs_ge_090": 15,
+  "same_fact_semantic_duplicates": 0,
+  "same_fact_semantic_duplicate_pairs": [],
+  "near_duplicate_pairs": [
+    {
+      "id_a": "cg-rd-0069",
+      "id_b": "cg-rd-0070",
+      "similarity": 0.9286,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0071",
+      "id_b": "cg-rd-0072",
+      "similarity": 0.9905,
+      "same_fact": false,
+      "same_family": false
+    },
+    {
+      "id_a": "cg-rd-0056",
+      "id_b": "cg-rd-0053",
+      "similarity": 0.9048,
+      "same_fact": false,
+      "same_family": false
+    },
+    {
+      "id_a": "cg-rd-0054",
+      "id_b": "cg-rd-0055",
+      "similarity": 0.9091,
+      "same_fact": false,
+      "same_family": false
+    },
+    {
+      "id_a": "cg-rd-0052",
+      "id_b": "cg-rd-0051",
+      "similarity": 0.9474,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0006",
+      "id_b": "cg-rd-0005",
+      "similarity": 0.9278,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0038",
+      "id_b": "cg-rd-0037",
+      "similarity": 0.9552,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0026",
+      "id_b": "cg-rd-0025",
+      "similarity": 0.9219,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0040",
+      "id_b": "cg-rd-0039",
+      "similarity": 0.973,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0002",
+      "id_b": "cg-rd-0001",
+      "similarity": 0.9615,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0032",
+      "id_b": "cg-rd-0031",
+      "similarity": 0.931,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0010",
+      "id_b": "cg-rd-0009",
+      "similarity": 0.96,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0022",
+      "id_b": "cg-rd-0021",
+      "similarity": 0.9722,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0048",
+      "id_b": "cg-rd-0047",
+      "similarity": 0.9643,
+      "same_fact": true,
+      "same_family": true
+    },
+    {
+      "id_a": "cg-rd-0004",
+      "id_b": "cg-rd-0003",
+      "similarity": 0.963,
+      "same_fact": true,
+      "same_family": true
+    }
+  ],
+  "repeated_normalized_claims": []
+}

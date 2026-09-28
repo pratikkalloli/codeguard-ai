@@ -1,0 +1,3419 @@
+{
+  "phase": "18",
+  "title": "End-to-end demonstration validation",
+  "case_count": 5,
+  "all_expected_signals_observed": true,
+  "limitations": [
+    "The Phase 17 pass-rate estimate is reported separately from correctness tests and evidence-backed claim verification.",
+    "Execution timings include Python startup/sandbox overhead and are observations, not a benchmark score or cross-machine performance guarantee.",
+    "Static risk findings are warnings. The risk example writes only to container /tmp, which is ephemeral and not host-mounted.",
+    "The Phase 17 prediction estimates source-recorded competitive-programming pass rate; it is not a CodeGuard correctness verdict."
+  ],
+  "cases": [
+    {
+      "case_id": "correct",
+      "title": "Correct solution and explanation",
+      "input": {
+        "question": "Return the sum of the integers in a list. State whether Python lists are mutable.",
+        "raw_response": "Lists are mutable.\n\n```python\ndef solution(values):\n    return sum(values)\n```",
+        "extracted_python": "def solution(values):\n    return sum(values)",
+        "extracted_explanation": "Lists are mutable."
+      },
+      "expected_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Supported"
+      },
+      "observed_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Supported"
+      },
+      "expectations_met": true,
+      "ast_result": {
+        "status": "valid",
+        "message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+        "findings": []
+      },
+      "docker_execution_result": {
+        "status": "Passed",
+        "stdout": "6\n",
+        "stderr": "",
+        "exit_code": 0,
+        "duration_seconds": 1.772818,
+        "engine_check_seconds": 0.39546,
+        "code_execution_seconds": 0.0271,
+        "image_readiness_seconds": 0.232601,
+        "container_startup_seconds": 0.159739,
+        "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+        "docker_run_seconds": 0.712496,
+        "docker_overhead_estimate_seconds": 0.525657,
+        "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+        "memory_peak_bytes": 20860928,
+        "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+        "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+      },
+      "test_results": [
+        {
+          "test_name": "Test 1",
+          "status": "passed",
+          "expected_output": "6",
+          "inputs_json": "[[1, 2, 3]]",
+          "actual_output": "6",
+          "error_message": "",
+          "duration_seconds": 1.802274,
+          "code_execution_seconds": 0.099079,
+          "memory_peak_bytes": 24055808,
+          "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+          "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+        }
+      ],
+      "performance_result": {
+        "measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.0271,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.39546,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.232601,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.159739,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.712496,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.525657,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 20860928,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.099079,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 24055808,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "interpretation": "Measured by the existing Docker supervisor and runner; includes interpreter and container overhead."
+      },
+      "extracted_claims": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Insufficient evidence",
+          "reason": "This appears to be a factual assertion, but no trusted documentation evidence is connected yet.",
+          "evidence_text": ""
+        }
+      ],
+      "evidence_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "chunks": [
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1 More on Lists; 5.3 Tuples and Sequences",
+              "fact_key": "list_mutability",
+              "polarity": true,
+              "chunk_id": "tutorial-data-lists-mutability#1",
+              "text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "retrieval_score": 0.423851,
+              "retrieval_seconds": 0.0015325999120250344
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.3 Tuples and Sequences",
+              "fact_key": "tuple_mutability",
+              "polarity": false,
+              "chunk_id": "tutorial-data-tuples-immutable#1",
+              "text": "Tuples are immutable: assigning to an individual tuple item is not allowed. A tuple may contain a mutable object, but that does not make the tuple's own item bindings mutable.",
+              "retrieval_score": 0.254643,
+              "retrieval_seconds": 0.0015325999120250344
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1.3 List Comprehensions",
+              "fact_key": "list_comprehension_new_list",
+              "polarity": true,
+              "chunk_id": "tutorial-list-comprehension#1",
+              "text": "A list comprehension evaluates an expression for items selected by its for and optional if clauses, producing a new list.",
+              "retrieval_score": 0.223413,
+              "retrieval_seconds": 0.0015325999120250344
+            }
+          ]
+        }
+      ],
+      "claim_verification_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Supported",
+          "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+          "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+          "source": "Python Software Foundation",
+          "title": "The Python Tutorial: Data Structures",
+          "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "retrieval_score": 0.423851,
+          "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+          "retrieval_seconds": 8.599995635449886e-05,
+          "rule_result": "Supported",
+          "ml_result": null,
+          "ml_confidence": null,
+          "verification_method": "rule",
+          "ml_review_required": false
+        }
+      ],
+      "ml_reliability_prediction": {
+        "status": "predicted",
+        "task": "pass_rate_prediction",
+        "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+        "prediction_range": [
+          0.0,
+          1.0
+        ],
+        "prediction": 0.538712917517322,
+        "confidence": null,
+        "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+        "model": "linear_svr_c0_1",
+        "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+        "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+        "dataset_size": {
+          "downloaded_records": 60000,
+          "usable_records": 53401,
+          "reported_full_python_records": 1398166
+        },
+        "model_metadata": {
+          "seed": 1701,
+          "artifact_task": "execution_pass_rate_regression",
+          "target": "pass_rate",
+          "parameters": {
+            "C": 0.1,
+            "max_iter": 5000,
+            "dual": "auto"
+          }
+        },
+        "feature_fields": [
+          "code_chars",
+          "code_lines",
+          "dangerous_api_mentions",
+          "syntax_valid",
+          "ast_nodes",
+          "functions",
+          "classes",
+          "imports",
+          "loops",
+          "branches",
+          "try_blocks",
+          "comprehensions",
+          "source",
+          "dataset",
+          "difficulty"
+        ],
+        "feature_summary": {
+          "code_chars": 44.0,
+          "code_lines": 2.0,
+          "syntax_valid": 1.0,
+          "ast_nodes": 10.0,
+          "functions": 1.0,
+          "imports": 0.0,
+          "loops": 0.0,
+          "branches": 0.0
+        },
+        "limitations": [
+          "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+          "The training release does not provide problem text in this split.",
+          "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+        ]
+      },
+      "final_output": {
+        "report_version": 2,
+        "evaluation": {
+          "id": 1,
+          "created_at_utc": "2026-09-27T09:38:27+00:00",
+          "question": "Return the sum of the integers in a list. State whether Python lists are mutable.",
+          "model_or_source": "Phase 18 deterministic demonstration"
+        },
+        "code_blocks": [
+          {
+            "block_index": 1,
+            "code": "def solution(values):\n    return sum(values)",
+            "static_status": "valid",
+            "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+            "findings": []
+          }
+        ],
+        "test_results": [
+          {
+            "id": 1,
+            "test_name": "Test 1",
+            "inputs_json": "[[1, 2, 3]]",
+            "status": "passed",
+            "expected_output": "6",
+            "actual_output": "6",
+            "error_message": ""
+          }
+        ],
+        "test_summary": {
+          "total": 1,
+          "passed": 1,
+          "failed_or_other": 0,
+          "pass_percentage": 100.0
+        },
+        "performance_measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.0271,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.39546,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.232601,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.159739,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.712496,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.525657,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 20860928.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.099079,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 24055808.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "explanation": {
+          "text": "Lists are mutable.",
+          "claims": [
+            {
+              "claim_index": 1,
+              "claim_text": "Lists are mutable.",
+              "status": "Supported",
+              "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+              "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "retrieval_score": 0.423851,
+              "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+              "retrieval_seconds": 8.599995635449886e-05,
+              "rule_result": "Supported",
+              "ml_result": null,
+              "ml_confidence": null,
+              "verification_method": "rule",
+              "ml_review_required": 0
+            }
+          ],
+          "status_counts": {
+            "Supported": 1
+          }
+        },
+        "ml_reliability": {
+          "available": true,
+          "model": "linear_svr_c0_1",
+          "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+          "task": "pass_rate_prediction",
+          "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+          "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+          "dataset_size": {
+            "downloaded_records": 60000,
+            "usable_records": 53401,
+            "reported_full_python_records": 1398166
+          },
+          "prediction": 0.538712917517322,
+          "prediction_range": [
+            0.0,
+            1.0
+          ],
+          "confidence": null,
+          "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+          "feature_fields": [
+            "code_chars",
+            "code_lines",
+            "dangerous_api_mentions",
+            "syntax_valid",
+            "ast_nodes",
+            "functions",
+            "classes",
+            "imports",
+            "loops",
+            "branches",
+            "try_blocks",
+            "comprehensions",
+            "source",
+            "dataset",
+            "difficulty"
+          ],
+          "feature_summary": {
+            "code_chars": 44.0,
+            "code_lines": 2.0,
+            "syntax_valid": 1.0,
+            "ast_nodes": 10.0,
+            "functions": 1.0,
+            "imports": 0.0,
+            "loops": 0.0,
+            "branches": 0.0
+          },
+          "model_metadata": {
+            "seed": 1701,
+            "artifact_task": "execution_pass_rate_regression",
+            "target": "pass_rate",
+            "parameters": {
+              "C": 0.1,
+              "max_iter": 5000,
+              "dual": "auto"
+            }
+          },
+          "limitations": [
+            "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+            "The training release does not provide problem text in this split.",
+            "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+          ],
+          "reason": null,
+          "code_block_index": null
+        },
+        "signals": {
+          "static_ast_analysis": {
+            "available": true,
+            "code_blocks": [
+              {
+                "block_index": 1,
+                "code": "def solution(values):\n    return sum(values)",
+                "static_status": "valid",
+                "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+                "findings": []
+              }
+            ]
+          },
+          "docker_execution": {
+            "available": true,
+            "status": "Passed",
+            "stdout": "6\n",
+            "stderr": "",
+            "exit_code": 0,
+            "duration_seconds": 1.772818,
+            "engine_check_seconds": 0.39546,
+            "code_execution_seconds": 0.0271,
+            "image_readiness_seconds": 0.232601,
+            "container_startup_seconds": 0.159739,
+            "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+            "docker_run_seconds": 0.712496,
+            "docker_overhead_estimate_seconds": 0.525657,
+            "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+            "memory_peak_bytes": 20860928,
+            "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+            "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          "function_tests": {
+            "available": true,
+            "execution_environment": "restricted Docker containers",
+            "total": 1,
+            "passed": 1,
+            "failed_or_other": 0,
+            "results": [
+              {
+                "id": 1,
+                "test_name": "Test 1",
+                "inputs_json": "[[1, 2, 3]]",
+                "status": "passed",
+                "expected_output": "6",
+                "actual_output": "6",
+                "error_message": ""
+              }
+            ]
+          },
+          "performance_measurement": {
+            "available": true,
+            "measurements": [
+              {
+                "metric_name": "python_process_wall_time",
+                "metric_value": 0.0271,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "docker_engine_check_time",
+                "metric_value": 0.39546,
+                "unit": "seconds",
+                "measurement_type": "Host-observed Docker engine check"
+              },
+              {
+                "metric_name": "image_readiness_check_time",
+                "metric_value": 0.232601,
+                "unit": "seconds",
+                "measurement_type": "Host-observed local image inspection"
+              },
+              {
+                "metric_name": "container_startup_time",
+                "metric_value": 0.159739,
+                "unit": "seconds",
+                "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+              },
+              {
+                "metric_name": "docker_run_wall_time",
+                "metric_value": 0.712496,
+                "unit": "seconds",
+                "measurement_type": "Host-observed docker run lifetime"
+              },
+              {
+                "metric_name": "docker_overhead_estimate",
+                "metric_value": 0.525657,
+                "unit": "seconds",
+                "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+              },
+              {
+                "metric_name": "container_memory_peak",
+                "metric_value": 20860928.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              },
+              {
+                "metric_name": "function_test_1_python_process_wall_time",
+                "metric_value": 0.099079,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "function_test_1_container_memory_peak",
+                "metric_value": 24055808.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              }
+            ]
+          },
+          "explanation_claims": {
+            "available": true,
+            "claims": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 8.599995635449886e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "evidence_retrieval": {
+            "available": true,
+            "claims": [
+              {
+                "claim_text": "Lists are mutable.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1"
+              }
+            ]
+          },
+          "claim_verification": {
+            "total": 1,
+            "status_counts": {
+              "Supported": 1
+            },
+            "results": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 8.599995635449886e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "ml_reliability": {
+            "available": true,
+            "model": "linear_svr_c0_1",
+            "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+            "task": "pass_rate_prediction",
+            "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+            "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+            "dataset_size": {
+              "downloaded_records": 60000,
+              "usable_records": 53401,
+              "reported_full_python_records": 1398166
+            },
+            "prediction": 0.538712917517322,
+            "prediction_range": [
+              0.0,
+              1.0
+            ],
+            "confidence": null,
+            "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+            "feature_fields": [
+              "code_chars",
+              "code_lines",
+              "dangerous_api_mentions",
+              "syntax_valid",
+              "ast_nodes",
+              "functions",
+              "classes",
+              "imports",
+              "loops",
+              "branches",
+              "try_blocks",
+              "comprehensions",
+              "source",
+              "dataset",
+              "difficulty"
+            ],
+            "feature_summary": {
+              "code_chars": 44.0,
+              "code_lines": 2.0,
+              "syntax_valid": 1.0,
+              "ast_nodes": 10.0,
+              "functions": 1.0,
+              "imports": 0.0,
+              "loops": 0.0,
+              "branches": 0.0
+            },
+            "model_metadata": {
+              "seed": 1701,
+              "artifact_task": "execution_pass_rate_regression",
+              "target": "pass_rate",
+              "parameters": {
+                "C": 0.1,
+                "max_iter": 5000,
+                "dual": "auto"
+              }
+            },
+            "limitations": [
+              "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+              "The training release does not provide problem text in this split.",
+              "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+            ],
+            "reason": null,
+            "code_block_index": null
+          }
+        },
+        "limitations": [
+          "Static checks report syntax and selected patterns; they do not prove program correctness or safety.",
+          "Submitted code execution uses local Docker restrictions, which are not a production-grade security guarantee.",
+          "Python process timing includes interpreter startup and shutdown; it is not a pure algorithm benchmark.",
+          "Cgroup memory, when available, is whole-container peak memory and includes the Python runtime and sandbox overhead.",
+          "Explanation verification uses a small curated Python documentation corpus and explicit rules; it can miss claims and is not a guarantee of factual correctness.",
+          "Insufficient evidence means the current corpus or rules did not establish a result; it does not mean the claim is false."
+        ],
+        "summary_note": "This report presents independent observations. The ML reliability signal is a dataset-domain prediction and is not combined with CodeGuard verification into an overall score."
+      }
+    },
+    {
+      "case_id": "incorrect_code",
+      "title": "Syntactically valid code with an incorrect result",
+      "input": {
+        "question": "Return the sum of the integers in a list.",
+        "raw_response": "Lists are mutable.\n\n```python\ndef solution(values):\n    return max(values)\n```",
+        "extracted_python": "def solution(values):\n    return max(values)",
+        "extracted_explanation": "Lists are mutable."
+      },
+      "expected_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "failed",
+        "claim_status": "Supported"
+      },
+      "observed_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "failed",
+        "claim_status": "Supported"
+      },
+      "expectations_met": true,
+      "ast_result": {
+        "status": "valid",
+        "message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+        "findings": []
+      },
+      "docker_execution_result": {
+        "status": "Passed",
+        "stdout": "3\n",
+        "stderr": "",
+        "exit_code": 0,
+        "duration_seconds": 1.726799,
+        "engine_check_seconds": 0.412608,
+        "code_execution_seconds": 0.02135,
+        "image_readiness_seconds": 0.214558,
+        "container_startup_seconds": 0.149686,
+        "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+        "docker_run_seconds": 0.634687,
+        "docker_overhead_estimate_seconds": 0.463651,
+        "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+        "memory_peak_bytes": 17301504,
+        "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+        "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+      },
+      "test_results": [
+        {
+          "test_name": "Test 1",
+          "status": "failed",
+          "expected_output": "6",
+          "inputs_json": "[[1, 2, 3]]",
+          "actual_output": "3",
+          "error_message": "Returned value did not match the expected JSON value.",
+          "duration_seconds": 1.824443,
+          "code_execution_seconds": 0.119139,
+          "memory_peak_bytes": 22126592,
+          "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+          "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+        }
+      ],
+      "performance_result": {
+        "measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.02135,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.412608,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.214558,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.149686,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.634687,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.463651,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 17301504,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.119139,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22126592,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "interpretation": "Measured by the existing Docker supervisor and runner; includes interpreter and container overhead."
+      },
+      "extracted_claims": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Insufficient evidence",
+          "reason": "This appears to be a factual assertion, but no trusted documentation evidence is connected yet.",
+          "evidence_text": ""
+        }
+      ],
+      "evidence_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "chunks": [
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1 More on Lists; 5.3 Tuples and Sequences",
+              "fact_key": "list_mutability",
+              "polarity": true,
+              "chunk_id": "tutorial-data-lists-mutability#1",
+              "text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "retrieval_score": 0.423851,
+              "retrieval_seconds": 9.330001194030046e-05
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.3 Tuples and Sequences",
+              "fact_key": "tuple_mutability",
+              "polarity": false,
+              "chunk_id": "tutorial-data-tuples-immutable#1",
+              "text": "Tuples are immutable: assigning to an individual tuple item is not allowed. A tuple may contain a mutable object, but that does not make the tuple's own item bindings mutable.",
+              "retrieval_score": 0.254643,
+              "retrieval_seconds": 9.330001194030046e-05
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1.3 List Comprehensions",
+              "fact_key": "list_comprehension_new_list",
+              "polarity": true,
+              "chunk_id": "tutorial-list-comprehension#1",
+              "text": "A list comprehension evaluates an expression for items selected by its for and optional if clauses, producing a new list.",
+              "retrieval_score": 0.223413,
+              "retrieval_seconds": 9.330001194030046e-05
+            }
+          ]
+        }
+      ],
+      "claim_verification_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Supported",
+          "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+          "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+          "source": "Python Software Foundation",
+          "title": "The Python Tutorial: Data Structures",
+          "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "retrieval_score": 0.423851,
+          "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+          "retrieval_seconds": 3.720005042850971e-05,
+          "rule_result": "Supported",
+          "ml_result": null,
+          "ml_confidence": null,
+          "verification_method": "rule",
+          "ml_review_required": false
+        }
+      ],
+      "ml_reliability_prediction": {
+        "status": "predicted",
+        "task": "pass_rate_prediction",
+        "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+        "prediction_range": [
+          0.0,
+          1.0
+        ],
+        "prediction": 0.531513945415572,
+        "confidence": null,
+        "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+        "model": "linear_svr_c0_1",
+        "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+        "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+        "dataset_size": {
+          "downloaded_records": 60000,
+          "usable_records": 53401,
+          "reported_full_python_records": 1398166
+        },
+        "model_metadata": {
+          "seed": 1701,
+          "artifact_task": "execution_pass_rate_regression",
+          "target": "pass_rate",
+          "parameters": {
+            "C": 0.1,
+            "max_iter": 5000,
+            "dual": "auto"
+          }
+        },
+        "feature_fields": [
+          "code_chars",
+          "code_lines",
+          "dangerous_api_mentions",
+          "syntax_valid",
+          "ast_nodes",
+          "functions",
+          "classes",
+          "imports",
+          "loops",
+          "branches",
+          "try_blocks",
+          "comprehensions",
+          "source",
+          "dataset",
+          "difficulty"
+        ],
+        "feature_summary": {
+          "code_chars": 44.0,
+          "code_lines": 2.0,
+          "syntax_valid": 1.0,
+          "ast_nodes": 10.0,
+          "functions": 1.0,
+          "imports": 0.0,
+          "loops": 0.0,
+          "branches": 0.0
+        },
+        "limitations": [
+          "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+          "The training release does not provide problem text in this split.",
+          "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+        ]
+      },
+      "final_output": {
+        "report_version": 2,
+        "evaluation": {
+          "id": 2,
+          "created_at_utc": "2026-09-27T09:38:31+00:00",
+          "question": "Return the sum of the integers in a list.",
+          "model_or_source": "Phase 18 deterministic demonstration"
+        },
+        "code_blocks": [
+          {
+            "block_index": 1,
+            "code": "def solution(values):\n    return max(values)",
+            "static_status": "valid",
+            "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+            "findings": []
+          }
+        ],
+        "test_results": [
+          {
+            "id": 2,
+            "test_name": "Test 1",
+            "inputs_json": "[[1, 2, 3]]",
+            "status": "failed",
+            "expected_output": "6",
+            "actual_output": "3",
+            "error_message": "Returned value did not match the expected JSON value."
+          }
+        ],
+        "test_summary": {
+          "total": 1,
+          "passed": 0,
+          "failed_or_other": 1,
+          "pass_percentage": 0.0
+        },
+        "performance_measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.02135,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.412608,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.214558,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.149686,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.634687,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.463651,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 17301504.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.119139,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22126592.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "explanation": {
+          "text": "Lists are mutable.",
+          "claims": [
+            {
+              "claim_index": 1,
+              "claim_text": "Lists are mutable.",
+              "status": "Supported",
+              "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+              "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "retrieval_score": 0.423851,
+              "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+              "retrieval_seconds": 3.720005042850971e-05,
+              "rule_result": "Supported",
+              "ml_result": null,
+              "ml_confidence": null,
+              "verification_method": "rule",
+              "ml_review_required": 0
+            }
+          ],
+          "status_counts": {
+            "Supported": 1
+          }
+        },
+        "ml_reliability": {
+          "available": true,
+          "model": "linear_svr_c0_1",
+          "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+          "task": "pass_rate_prediction",
+          "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+          "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+          "dataset_size": {
+            "downloaded_records": 60000,
+            "usable_records": 53401,
+            "reported_full_python_records": 1398166
+          },
+          "prediction": 0.531513945415572,
+          "prediction_range": [
+            0.0,
+            1.0
+          ],
+          "confidence": null,
+          "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+          "feature_fields": [
+            "code_chars",
+            "code_lines",
+            "dangerous_api_mentions",
+            "syntax_valid",
+            "ast_nodes",
+            "functions",
+            "classes",
+            "imports",
+            "loops",
+            "branches",
+            "try_blocks",
+            "comprehensions",
+            "source",
+            "dataset",
+            "difficulty"
+          ],
+          "feature_summary": {
+            "code_chars": 44.0,
+            "code_lines": 2.0,
+            "syntax_valid": 1.0,
+            "ast_nodes": 10.0,
+            "functions": 1.0,
+            "imports": 0.0,
+            "loops": 0.0,
+            "branches": 0.0
+          },
+          "model_metadata": {
+            "seed": 1701,
+            "artifact_task": "execution_pass_rate_regression",
+            "target": "pass_rate",
+            "parameters": {
+              "C": 0.1,
+              "max_iter": 5000,
+              "dual": "auto"
+            }
+          },
+          "limitations": [
+            "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+            "The training release does not provide problem text in this split.",
+            "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+          ],
+          "reason": null,
+          "code_block_index": null
+        },
+        "signals": {
+          "static_ast_analysis": {
+            "available": true,
+            "code_blocks": [
+              {
+                "block_index": 1,
+                "code": "def solution(values):\n    return max(values)",
+                "static_status": "valid",
+                "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+                "findings": []
+              }
+            ]
+          },
+          "docker_execution": {
+            "available": true,
+            "status": "Passed",
+            "stdout": "3\n",
+            "stderr": "",
+            "exit_code": 0,
+            "duration_seconds": 1.726799,
+            "engine_check_seconds": 0.412608,
+            "code_execution_seconds": 0.02135,
+            "image_readiness_seconds": 0.214558,
+            "container_startup_seconds": 0.149686,
+            "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+            "docker_run_seconds": 0.634687,
+            "docker_overhead_estimate_seconds": 0.463651,
+            "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+            "memory_peak_bytes": 17301504,
+            "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+            "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          "function_tests": {
+            "available": true,
+            "execution_environment": "restricted Docker containers",
+            "total": 1,
+            "passed": 0,
+            "failed_or_other": 1,
+            "results": [
+              {
+                "id": 2,
+                "test_name": "Test 1",
+                "inputs_json": "[[1, 2, 3]]",
+                "status": "failed",
+                "expected_output": "6",
+                "actual_output": "3",
+                "error_message": "Returned value did not match the expected JSON value."
+              }
+            ]
+          },
+          "performance_measurement": {
+            "available": true,
+            "measurements": [
+              {
+                "metric_name": "python_process_wall_time",
+                "metric_value": 0.02135,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "docker_engine_check_time",
+                "metric_value": 0.412608,
+                "unit": "seconds",
+                "measurement_type": "Host-observed Docker engine check"
+              },
+              {
+                "metric_name": "image_readiness_check_time",
+                "metric_value": 0.214558,
+                "unit": "seconds",
+                "measurement_type": "Host-observed local image inspection"
+              },
+              {
+                "metric_name": "container_startup_time",
+                "metric_value": 0.149686,
+                "unit": "seconds",
+                "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+              },
+              {
+                "metric_name": "docker_run_wall_time",
+                "metric_value": 0.634687,
+                "unit": "seconds",
+                "measurement_type": "Host-observed docker run lifetime"
+              },
+              {
+                "metric_name": "docker_overhead_estimate",
+                "metric_value": 0.463651,
+                "unit": "seconds",
+                "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+              },
+              {
+                "metric_name": "container_memory_peak",
+                "metric_value": 17301504.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              },
+              {
+                "metric_name": "function_test_1_python_process_wall_time",
+                "metric_value": 0.119139,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "function_test_1_container_memory_peak",
+                "metric_value": 22126592.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              }
+            ]
+          },
+          "explanation_claims": {
+            "available": true,
+            "claims": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 3.720005042850971e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "evidence_retrieval": {
+            "available": true,
+            "claims": [
+              {
+                "claim_text": "Lists are mutable.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1"
+              }
+            ]
+          },
+          "claim_verification": {
+            "total": 1,
+            "status_counts": {
+              "Supported": 1
+            },
+            "results": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 3.720005042850971e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "ml_reliability": {
+            "available": true,
+            "model": "linear_svr_c0_1",
+            "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+            "task": "pass_rate_prediction",
+            "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+            "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+            "dataset_size": {
+              "downloaded_records": 60000,
+              "usable_records": 53401,
+              "reported_full_python_records": 1398166
+            },
+            "prediction": 0.531513945415572,
+            "prediction_range": [
+              0.0,
+              1.0
+            ],
+            "confidence": null,
+            "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+            "feature_fields": [
+              "code_chars",
+              "code_lines",
+              "dangerous_api_mentions",
+              "syntax_valid",
+              "ast_nodes",
+              "functions",
+              "classes",
+              "imports",
+              "loops",
+              "branches",
+              "try_blocks",
+              "comprehensions",
+              "source",
+              "dataset",
+              "difficulty"
+            ],
+            "feature_summary": {
+              "code_chars": 44.0,
+              "code_lines": 2.0,
+              "syntax_valid": 1.0,
+              "ast_nodes": 10.0,
+              "functions": 1.0,
+              "imports": 0.0,
+              "loops": 0.0,
+              "branches": 0.0
+            },
+            "model_metadata": {
+              "seed": 1701,
+              "artifact_task": "execution_pass_rate_regression",
+              "target": "pass_rate",
+              "parameters": {
+                "C": 0.1,
+                "max_iter": 5000,
+                "dual": "auto"
+              }
+            },
+            "limitations": [
+              "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+              "The training release does not provide problem text in this split.",
+              "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+            ],
+            "reason": null,
+            "code_block_index": null
+          }
+        },
+        "limitations": [
+          "Static checks report syntax and selected patterns; they do not prove program correctness or safety.",
+          "Submitted code execution uses local Docker restrictions, which are not a production-grade security guarantee.",
+          "Python process timing includes interpreter startup and shutdown; it is not a pure algorithm benchmark.",
+          "Cgroup memory, when available, is whole-container peak memory and includes the Python runtime and sandbox overhead.",
+          "Explanation verification uses a small curated Python documentation corpus and explicit rules; it can miss claims and is not a guarantee of factual correctness.",
+          "Insufficient evidence means the current corpus or rules did not establish a result; it does not mean the claim is false."
+        ],
+        "summary_note": "This report presents independent observations. The ML reliability signal is a dataset-domain prediction and is not combined with CodeGuard verification into an overall score."
+      }
+    },
+    {
+      "case_id": "explanation_error",
+      "title": "Correct code with a documentation-conflicting claim",
+      "input": {
+        "question": "Return the sum of the integers in a list and explain list mutability.",
+        "raw_response": "Lists are immutable.\n\n```python\ndef solution(values):\n    return sum(values)\n```",
+        "extracted_python": "def solution(values):\n    return sum(values)",
+        "extracted_explanation": "Lists are immutable."
+      },
+      "expected_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Contradicted"
+      },
+      "observed_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Contradicted"
+      },
+      "expectations_met": true,
+      "ast_result": {
+        "status": "valid",
+        "message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+        "findings": []
+      },
+      "docker_execution_result": {
+        "status": "Passed",
+        "stdout": "6\n",
+        "stderr": "",
+        "exit_code": 0,
+        "duration_seconds": 1.658919,
+        "engine_check_seconds": 0.385934,
+        "code_execution_seconds": 0.073213,
+        "image_readiness_seconds": 0.208664,
+        "container_startup_seconds": 0.16813,
+        "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+        "docker_run_seconds": 0.634228,
+        "docker_overhead_estimate_seconds": 0.392885,
+        "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+        "memory_peak_bytes": 17534976,
+        "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+        "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+      },
+      "test_results": [
+        {
+          "test_name": "Test 1",
+          "status": "passed",
+          "expected_output": "6",
+          "inputs_json": "[[1, 2, 3]]",
+          "actual_output": "6",
+          "error_message": "",
+          "duration_seconds": 1.854357,
+          "code_execution_seconds": 0.186816,
+          "memory_peak_bytes": 22867968,
+          "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+          "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+        }
+      ],
+      "performance_result": {
+        "measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.073213,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.385934,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.208664,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.16813,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.634228,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.392885,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 17534976,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.186816,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22867968,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "interpretation": "Measured by the existing Docker supervisor and runner; includes interpreter and container overhead."
+      },
+      "extracted_claims": [
+        {
+          "claim_text": "Lists are immutable.",
+          "status": "Insufficient evidence",
+          "reason": "This appears to be a factual assertion, but no trusted documentation evidence is connected yet.",
+          "evidence_text": ""
+        }
+      ],
+      "evidence_results": [
+        {
+          "claim_text": "Lists are immutable.",
+          "chunks": [
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1 More on Lists; 5.3 Tuples and Sequences",
+              "fact_key": "list_mutability",
+              "polarity": true,
+              "chunk_id": "tutorial-data-lists-mutability#1",
+              "text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "retrieval_score": 0.326326,
+              "retrieval_seconds": 0.00013539998326450586
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1.3 List Comprehensions",
+              "fact_key": "list_comprehension_new_list",
+              "polarity": true,
+              "chunk_id": "tutorial-list-comprehension#1",
+              "text": "A list comprehension evaluates an expression for items selected by its for and optional if clauses, producing a new list.",
+              "retrieval_score": 0.223413,
+              "retrieval_seconds": 0.00013539998326450586
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.3 Tuples and Sequences",
+              "fact_key": "tuple_mutability",
+              "polarity": false,
+              "chunk_id": "tutorial-data-tuples-immutable#1",
+              "text": "Tuples are immutable: assigning to an individual tuple item is not allowed. A tuple may contain a mutable object, but that does not make the tuple's own item bindings mutable.",
+              "retrieval_score": 0.150396,
+              "retrieval_seconds": 0.00013539998326450586
+            }
+          ]
+        }
+      ],
+      "claim_verification_results": [
+        {
+          "claim_text": "Lists are immutable.",
+          "status": "Contradicted",
+          "reason": "The retrieved documentation directly conflicts with the recognized claim rule.",
+          "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+          "source": "Python Software Foundation",
+          "title": "The Python Tutorial: Data Structures",
+          "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "retrieval_score": 0.326326,
+          "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+          "retrieval_seconds": 6.230000872164965e-05,
+          "rule_result": "Contradicted",
+          "ml_result": null,
+          "ml_confidence": null,
+          "verification_method": "rule",
+          "ml_review_required": false
+        }
+      ],
+      "ml_reliability_prediction": {
+        "status": "predicted",
+        "task": "pass_rate_prediction",
+        "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+        "prediction_range": [
+          0.0,
+          1.0
+        ],
+        "prediction": 0.538712917517322,
+        "confidence": null,
+        "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+        "model": "linear_svr_c0_1",
+        "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+        "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+        "dataset_size": {
+          "downloaded_records": 60000,
+          "usable_records": 53401,
+          "reported_full_python_records": 1398166
+        },
+        "model_metadata": {
+          "seed": 1701,
+          "artifact_task": "execution_pass_rate_regression",
+          "target": "pass_rate",
+          "parameters": {
+            "C": 0.1,
+            "max_iter": 5000,
+            "dual": "auto"
+          }
+        },
+        "feature_fields": [
+          "code_chars",
+          "code_lines",
+          "dangerous_api_mentions",
+          "syntax_valid",
+          "ast_nodes",
+          "functions",
+          "classes",
+          "imports",
+          "loops",
+          "branches",
+          "try_blocks",
+          "comprehensions",
+          "source",
+          "dataset",
+          "difficulty"
+        ],
+        "feature_summary": {
+          "code_chars": 44.0,
+          "code_lines": 2.0,
+          "syntax_valid": 1.0,
+          "ast_nodes": 10.0,
+          "functions": 1.0,
+          "imports": 0.0,
+          "loops": 0.0,
+          "branches": 0.0
+        },
+        "limitations": [
+          "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+          "The training release does not provide problem text in this split.",
+          "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+        ]
+      },
+      "final_output": {
+        "report_version": 2,
+        "evaluation": {
+          "id": 3,
+          "created_at_utc": "2026-09-27T09:38:34+00:00",
+          "question": "Return the sum of the integers in a list and explain list mutability.",
+          "model_or_source": "Phase 18 deterministic demonstration"
+        },
+        "code_blocks": [
+          {
+            "block_index": 1,
+            "code": "def solution(values):\n    return sum(values)",
+            "static_status": "valid",
+            "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+            "findings": []
+          }
+        ],
+        "test_results": [
+          {
+            "id": 3,
+            "test_name": "Test 1",
+            "inputs_json": "[[1, 2, 3]]",
+            "status": "passed",
+            "expected_output": "6",
+            "actual_output": "6",
+            "error_message": ""
+          }
+        ],
+        "test_summary": {
+          "total": 1,
+          "passed": 1,
+          "failed_or_other": 0,
+          "pass_percentage": 100.0
+        },
+        "performance_measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.073213,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.385934,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.208664,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.16813,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.634228,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.392885,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 17534976.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.186816,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22867968.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "explanation": {
+          "text": "Lists are immutable.",
+          "claims": [
+            {
+              "claim_index": 1,
+              "claim_text": "Lists are immutable.",
+              "status": "Contradicted",
+              "reason": "The retrieved documentation directly conflicts with the recognized claim rule.",
+              "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "retrieval_score": 0.326326,
+              "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+              "retrieval_seconds": 6.230000872164965e-05,
+              "rule_result": "Contradicted",
+              "ml_result": null,
+              "ml_confidence": null,
+              "verification_method": "rule",
+              "ml_review_required": 0
+            }
+          ],
+          "status_counts": {
+            "Contradicted": 1
+          }
+        },
+        "ml_reliability": {
+          "available": true,
+          "model": "linear_svr_c0_1",
+          "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+          "task": "pass_rate_prediction",
+          "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+          "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+          "dataset_size": {
+            "downloaded_records": 60000,
+            "usable_records": 53401,
+            "reported_full_python_records": 1398166
+          },
+          "prediction": 0.538712917517322,
+          "prediction_range": [
+            0.0,
+            1.0
+          ],
+          "confidence": null,
+          "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+          "feature_fields": [
+            "code_chars",
+            "code_lines",
+            "dangerous_api_mentions",
+            "syntax_valid",
+            "ast_nodes",
+            "functions",
+            "classes",
+            "imports",
+            "loops",
+            "branches",
+            "try_blocks",
+            "comprehensions",
+            "source",
+            "dataset",
+            "difficulty"
+          ],
+          "feature_summary": {
+            "code_chars": 44.0,
+            "code_lines": 2.0,
+            "syntax_valid": 1.0,
+            "ast_nodes": 10.0,
+            "functions": 1.0,
+            "imports": 0.0,
+            "loops": 0.0,
+            "branches": 0.0
+          },
+          "model_metadata": {
+            "seed": 1701,
+            "artifact_task": "execution_pass_rate_regression",
+            "target": "pass_rate",
+            "parameters": {
+              "C": 0.1,
+              "max_iter": 5000,
+              "dual": "auto"
+            }
+          },
+          "limitations": [
+            "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+            "The training release does not provide problem text in this split.",
+            "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+          ],
+          "reason": null,
+          "code_block_index": null
+        },
+        "signals": {
+          "static_ast_analysis": {
+            "available": true,
+            "code_blocks": [
+              {
+                "block_index": 1,
+                "code": "def solution(values):\n    return sum(values)",
+                "static_status": "valid",
+                "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+                "findings": []
+              }
+            ]
+          },
+          "docker_execution": {
+            "available": true,
+            "status": "Passed",
+            "stdout": "6\n",
+            "stderr": "",
+            "exit_code": 0,
+            "duration_seconds": 1.658919,
+            "engine_check_seconds": 0.385934,
+            "code_execution_seconds": 0.073213,
+            "image_readiness_seconds": 0.208664,
+            "container_startup_seconds": 0.16813,
+            "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+            "docker_run_seconds": 0.634228,
+            "docker_overhead_estimate_seconds": 0.392885,
+            "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+            "memory_peak_bytes": 17534976,
+            "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+            "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          "function_tests": {
+            "available": true,
+            "execution_environment": "restricted Docker containers",
+            "total": 1,
+            "passed": 1,
+            "failed_or_other": 0,
+            "results": [
+              {
+                "id": 3,
+                "test_name": "Test 1",
+                "inputs_json": "[[1, 2, 3]]",
+                "status": "passed",
+                "expected_output": "6",
+                "actual_output": "6",
+                "error_message": ""
+              }
+            ]
+          },
+          "performance_measurement": {
+            "available": true,
+            "measurements": [
+              {
+                "metric_name": "python_process_wall_time",
+                "metric_value": 0.073213,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "docker_engine_check_time",
+                "metric_value": 0.385934,
+                "unit": "seconds",
+                "measurement_type": "Host-observed Docker engine check"
+              },
+              {
+                "metric_name": "image_readiness_check_time",
+                "metric_value": 0.208664,
+                "unit": "seconds",
+                "measurement_type": "Host-observed local image inspection"
+              },
+              {
+                "metric_name": "container_startup_time",
+                "metric_value": 0.16813,
+                "unit": "seconds",
+                "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+              },
+              {
+                "metric_name": "docker_run_wall_time",
+                "metric_value": 0.634228,
+                "unit": "seconds",
+                "measurement_type": "Host-observed docker run lifetime"
+              },
+              {
+                "metric_name": "docker_overhead_estimate",
+                "metric_value": 0.392885,
+                "unit": "seconds",
+                "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+              },
+              {
+                "metric_name": "container_memory_peak",
+                "metric_value": 17534976.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              },
+              {
+                "metric_name": "function_test_1_python_process_wall_time",
+                "metric_value": 0.186816,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "function_test_1_container_memory_peak",
+                "metric_value": 22867968.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              }
+            ]
+          },
+          "explanation_claims": {
+            "available": true,
+            "claims": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are immutable.",
+                "status": "Contradicted",
+                "reason": "The retrieved documentation directly conflicts with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.326326,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 6.230000872164965e-05,
+                "rule_result": "Contradicted",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "evidence_retrieval": {
+            "available": true,
+            "claims": [
+              {
+                "claim_text": "Lists are immutable.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.326326,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1"
+              }
+            ]
+          },
+          "claim_verification": {
+            "total": 1,
+            "status_counts": {
+              "Contradicted": 1
+            },
+            "results": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are immutable.",
+                "status": "Contradicted",
+                "reason": "The retrieved documentation directly conflicts with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.326326,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 6.230000872164965e-05,
+                "rule_result": "Contradicted",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "ml_reliability": {
+            "available": true,
+            "model": "linear_svr_c0_1",
+            "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+            "task": "pass_rate_prediction",
+            "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+            "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+            "dataset_size": {
+              "downloaded_records": 60000,
+              "usable_records": 53401,
+              "reported_full_python_records": 1398166
+            },
+            "prediction": 0.538712917517322,
+            "prediction_range": [
+              0.0,
+              1.0
+            ],
+            "confidence": null,
+            "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+            "feature_fields": [
+              "code_chars",
+              "code_lines",
+              "dangerous_api_mentions",
+              "syntax_valid",
+              "ast_nodes",
+              "functions",
+              "classes",
+              "imports",
+              "loops",
+              "branches",
+              "try_blocks",
+              "comprehensions",
+              "source",
+              "dataset",
+              "difficulty"
+            ],
+            "feature_summary": {
+              "code_chars": 44.0,
+              "code_lines": 2.0,
+              "syntax_valid": 1.0,
+              "ast_nodes": 10.0,
+              "functions": 1.0,
+              "imports": 0.0,
+              "loops": 0.0,
+              "branches": 0.0
+            },
+            "model_metadata": {
+              "seed": 1701,
+              "artifact_task": "execution_pass_rate_regression",
+              "target": "pass_rate",
+              "parameters": {
+                "C": 0.1,
+                "max_iter": 5000,
+                "dual": "auto"
+              }
+            },
+            "limitations": [
+              "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+              "The training release does not provide problem text in this split.",
+              "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+            ],
+            "reason": null,
+            "code_block_index": null
+          }
+        },
+        "limitations": [
+          "Static checks report syntax and selected patterns; they do not prove program correctness or safety.",
+          "Submitted code execution uses local Docker restrictions, which are not a production-grade security guarantee.",
+          "Python process timing includes interpreter startup and shutdown; it is not a pure algorithm benchmark.",
+          "Cgroup memory, when available, is whole-container peak memory and includes the Python runtime and sandbox overhead.",
+          "Explanation verification uses a small curated Python documentation corpus and explicit rules; it can miss claims and is not a guarantee of factual correctness.",
+          "Insufficient evidence means the current corpus or rules did not establish a result; it does not mean the claim is false."
+        ],
+        "summary_note": "This report presents independent observations. The ML reliability signal is a dataset-domain prediction and is not combined with CodeGuard verification into an overall score."
+      }
+    },
+    {
+      "case_id": "performance",
+      "title": "Correct but deliberately quadratic solution",
+      "input": {
+        "question": "Return the sum of a non-empty list of integers.",
+        "raw_response": "Lists are mutable.\n\n```python\ndef solution(values):\n    total = 0\n    for value in values:\n        for _ in values:\n            total += value\n    return total // len(values)\n```",
+        "extracted_python": "def solution(values):\n    total = 0\n    for value in values:\n        for _ in values:\n            total += value\n    return total // len(values)",
+        "extracted_explanation": "Lists are mutable."
+      },
+      "expected_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Supported"
+      },
+      "observed_behavior": {
+        "ast_status": "valid",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Supported"
+      },
+      "expectations_met": true,
+      "ast_result": {
+        "status": "valid",
+        "message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+        "findings": []
+      },
+      "docker_execution_result": {
+        "status": "Passed",
+        "stdout": "3500\n",
+        "stderr": "",
+        "exit_code": 0,
+        "duration_seconds": 2.215995,
+        "engine_check_seconds": 0.404729,
+        "code_execution_seconds": 0.500222,
+        "image_readiness_seconds": 0.203169,
+        "container_startup_seconds": 0.149836,
+        "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+        "docker_run_seconds": 1.191918,
+        "docker_overhead_estimate_seconds": 0.54186,
+        "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+        "memory_peak_bytes": 16986112,
+        "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+        "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+      },
+      "test_results": [
+        {
+          "test_name": "Test 1",
+          "status": "passed",
+          "expected_output": "3500",
+          "inputs_json": "[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]",
+          "actual_output": "3500",
+          "error_message": "",
+          "duration_seconds": 2.261443,
+          "code_execution_seconds": 0.62351,
+          "memory_peak_bytes": 22536192,
+          "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+          "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+        }
+      ],
+      "performance_result": {
+        "measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.500222,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.404729,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.203169,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.149836,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 1.191918,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.54186,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 16986112,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.62351,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22536192,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "interpretation": "Measured by the existing Docker supervisor and runner; includes interpreter and container overhead."
+      },
+      "extracted_claims": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Insufficient evidence",
+          "reason": "This appears to be a factual assertion, but no trusted documentation evidence is connected yet.",
+          "evidence_text": ""
+        }
+      ],
+      "evidence_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "chunks": [
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1 More on Lists; 5.3 Tuples and Sequences",
+              "fact_key": "list_mutability",
+              "polarity": true,
+              "chunk_id": "tutorial-data-lists-mutability#1",
+              "text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "retrieval_score": 0.423851,
+              "retrieval_seconds": 0.0001564000267535448
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.3 Tuples and Sequences",
+              "fact_key": "tuple_mutability",
+              "polarity": false,
+              "chunk_id": "tutorial-data-tuples-immutable#1",
+              "text": "Tuples are immutable: assigning to an individual tuple item is not allowed. A tuple may contain a mutable object, but that does not make the tuple's own item bindings mutable.",
+              "retrieval_score": 0.254643,
+              "retrieval_seconds": 0.0001564000267535448
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1.3 List Comprehensions",
+              "fact_key": "list_comprehension_new_list",
+              "polarity": true,
+              "chunk_id": "tutorial-list-comprehension#1",
+              "text": "A list comprehension evaluates an expression for items selected by its for and optional if clauses, producing a new list.",
+              "retrieval_score": 0.223413,
+              "retrieval_seconds": 0.0001564000267535448
+            }
+          ]
+        }
+      ],
+      "claim_verification_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Supported",
+          "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+          "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+          "source": "Python Software Foundation",
+          "title": "The Python Tutorial: Data Structures",
+          "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "retrieval_score": 0.423851,
+          "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+          "retrieval_seconds": 4.710000939667225e-05,
+          "rule_result": "Supported",
+          "ml_result": null,
+          "ml_confidence": null,
+          "verification_method": "rule",
+          "ml_review_required": false
+        }
+      ],
+      "ml_reliability_prediction": {
+        "status": "predicted",
+        "task": "pass_rate_prediction",
+        "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+        "prediction_range": [
+          0.0,
+          1.0
+        ],
+        "prediction": 0.5947133178410993,
+        "confidence": null,
+        "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+        "model": "linear_svr_c0_1",
+        "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+        "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+        "dataset_size": {
+          "downloaded_records": 60000,
+          "usable_records": 53401,
+          "reported_full_python_records": 1398166
+        },
+        "model_metadata": {
+          "seed": 1701,
+          "artifact_task": "execution_pass_rate_regression",
+          "target": "pass_rate",
+          "parameters": {
+            "C": 0.1,
+            "max_iter": 5000,
+            "dual": "auto"
+          }
+        },
+        "feature_fields": [
+          "code_chars",
+          "code_lines",
+          "dangerous_api_mentions",
+          "syntax_valid",
+          "ast_nodes",
+          "functions",
+          "classes",
+          "imports",
+          "loops",
+          "branches",
+          "try_blocks",
+          "comprehensions",
+          "source",
+          "dataset",
+          "difficulty"
+        ],
+        "feature_summary": {
+          "code_chars": 144.0,
+          "code_lines": 6.0,
+          "syntax_valid": 1.0,
+          "ast_nodes": 34.0,
+          "functions": 1.0,
+          "imports": 0.0,
+          "loops": 2.0,
+          "branches": 0.0
+        },
+        "limitations": [
+          "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+          "The training release does not provide problem text in this split.",
+          "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+        ]
+      },
+      "final_output": {
+        "report_version": 2,
+        "evaluation": {
+          "id": 4,
+          "created_at_utc": "2026-09-27T09:38:38+00:00",
+          "question": "Return the sum of a non-empty list of integers.",
+          "model_or_source": "Phase 18 deterministic demonstration"
+        },
+        "code_blocks": [
+          {
+            "block_index": 1,
+            "code": "def solution(values):\n    total = 0\n    for value in values:\n        for _ in values:\n            total += value\n    return total // len(values)",
+            "static_status": "valid",
+            "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+            "findings": []
+          }
+        ],
+        "test_results": [
+          {
+            "id": 4,
+            "test_name": "Test 1",
+            "inputs_json": "[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]",
+            "status": "passed",
+            "expected_output": "3500",
+            "actual_output": "3500",
+            "error_message": ""
+          }
+        ],
+        "test_summary": {
+          "total": 1,
+          "passed": 1,
+          "failed_or_other": 0,
+          "pass_percentage": 100.0
+        },
+        "performance_measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.500222,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.404729,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.203169,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.149836,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 1.191918,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.54186,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 16986112.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.62351,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22536192.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "explanation": {
+          "text": "Lists are mutable.",
+          "claims": [
+            {
+              "claim_index": 1,
+              "claim_text": "Lists are mutable.",
+              "status": "Supported",
+              "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+              "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "retrieval_score": 0.423851,
+              "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+              "retrieval_seconds": 4.710000939667225e-05,
+              "rule_result": "Supported",
+              "ml_result": null,
+              "ml_confidence": null,
+              "verification_method": "rule",
+              "ml_review_required": 0
+            }
+          ],
+          "status_counts": {
+            "Supported": 1
+          }
+        },
+        "ml_reliability": {
+          "available": true,
+          "model": "linear_svr_c0_1",
+          "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+          "task": "pass_rate_prediction",
+          "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+          "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+          "dataset_size": {
+            "downloaded_records": 60000,
+            "usable_records": 53401,
+            "reported_full_python_records": 1398166
+          },
+          "prediction": 0.5947133178410993,
+          "prediction_range": [
+            0.0,
+            1.0
+          ],
+          "confidence": null,
+          "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+          "feature_fields": [
+            "code_chars",
+            "code_lines",
+            "dangerous_api_mentions",
+            "syntax_valid",
+            "ast_nodes",
+            "functions",
+            "classes",
+            "imports",
+            "loops",
+            "branches",
+            "try_blocks",
+            "comprehensions",
+            "source",
+            "dataset",
+            "difficulty"
+          ],
+          "feature_summary": {
+            "code_chars": 144.0,
+            "code_lines": 6.0,
+            "syntax_valid": 1.0,
+            "ast_nodes": 34.0,
+            "functions": 1.0,
+            "imports": 0.0,
+            "loops": 2.0,
+            "branches": 0.0
+          },
+          "model_metadata": {
+            "seed": 1701,
+            "artifact_task": "execution_pass_rate_regression",
+            "target": "pass_rate",
+            "parameters": {
+              "C": 0.1,
+              "max_iter": 5000,
+              "dual": "auto"
+            }
+          },
+          "limitations": [
+            "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+            "The training release does not provide problem text in this split.",
+            "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+          ],
+          "reason": null,
+          "code_block_index": null
+        },
+        "signals": {
+          "static_ast_analysis": {
+            "available": true,
+            "code_blocks": [
+              {
+                "block_index": 1,
+                "code": "def solution(values):\n    total = 0\n    for value in values:\n        for _ in values:\n            total += value\n    return total // len(values)",
+                "static_status": "valid",
+                "static_message": "Python syntax is valid. Static checks found no flagged operations; this is not a safety guarantee.",
+                "findings": []
+              }
+            ]
+          },
+          "docker_execution": {
+            "available": true,
+            "status": "Passed",
+            "stdout": "3500\n",
+            "stderr": "",
+            "exit_code": 0,
+            "duration_seconds": 2.215995,
+            "engine_check_seconds": 0.404729,
+            "code_execution_seconds": 0.500222,
+            "image_readiness_seconds": 0.203169,
+            "container_startup_seconds": 0.149836,
+            "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+            "docker_run_seconds": 1.191918,
+            "docker_overhead_estimate_seconds": 0.54186,
+            "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+            "memory_peak_bytes": 16986112,
+            "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+            "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          "function_tests": {
+            "available": true,
+            "execution_environment": "restricted Docker containers",
+            "total": 1,
+            "passed": 1,
+            "failed_or_other": 0,
+            "results": [
+              {
+                "id": 4,
+                "test_name": "Test 1",
+                "inputs_json": "[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]",
+                "status": "passed",
+                "expected_output": "3500",
+                "actual_output": "3500",
+                "error_message": ""
+              }
+            ]
+          },
+          "performance_measurement": {
+            "available": true,
+            "measurements": [
+              {
+                "metric_name": "python_process_wall_time",
+                "metric_value": 0.500222,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "docker_engine_check_time",
+                "metric_value": 0.404729,
+                "unit": "seconds",
+                "measurement_type": "Host-observed Docker engine check"
+              },
+              {
+                "metric_name": "image_readiness_check_time",
+                "metric_value": 0.203169,
+                "unit": "seconds",
+                "measurement_type": "Host-observed local image inspection"
+              },
+              {
+                "metric_name": "container_startup_time",
+                "metric_value": 0.149836,
+                "unit": "seconds",
+                "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+              },
+              {
+                "metric_name": "docker_run_wall_time",
+                "metric_value": 1.191918,
+                "unit": "seconds",
+                "measurement_type": "Host-observed docker run lifetime"
+              },
+              {
+                "metric_name": "docker_overhead_estimate",
+                "metric_value": 0.54186,
+                "unit": "seconds",
+                "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+              },
+              {
+                "metric_name": "container_memory_peak",
+                "metric_value": 16986112.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              },
+              {
+                "metric_name": "function_test_1_python_process_wall_time",
+                "metric_value": 0.62351,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "function_test_1_container_memory_peak",
+                "metric_value": 22536192.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              }
+            ]
+          },
+          "explanation_claims": {
+            "available": true,
+            "claims": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 4.710000939667225e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "evidence_retrieval": {
+            "available": true,
+            "claims": [
+              {
+                "claim_text": "Lists are mutable.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1"
+              }
+            ]
+          },
+          "claim_verification": {
+            "total": 1,
+            "status_counts": {
+              "Supported": 1
+            },
+            "results": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 4.710000939667225e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "ml_reliability": {
+            "available": true,
+            "model": "linear_svr_c0_1",
+            "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+            "task": "pass_rate_prediction",
+            "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+            "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+            "dataset_size": {
+              "downloaded_records": 60000,
+              "usable_records": 53401,
+              "reported_full_python_records": 1398166
+            },
+            "prediction": 0.5947133178410993,
+            "prediction_range": [
+              0.0,
+              1.0
+            ],
+            "confidence": null,
+            "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+            "feature_fields": [
+              "code_chars",
+              "code_lines",
+              "dangerous_api_mentions",
+              "syntax_valid",
+              "ast_nodes",
+              "functions",
+              "classes",
+              "imports",
+              "loops",
+              "branches",
+              "try_blocks",
+              "comprehensions",
+              "source",
+              "dataset",
+              "difficulty"
+            ],
+            "feature_summary": {
+              "code_chars": 144.0,
+              "code_lines": 6.0,
+              "syntax_valid": 1.0,
+              "ast_nodes": 34.0,
+              "functions": 1.0,
+              "imports": 0.0,
+              "loops": 2.0,
+              "branches": 0.0
+            },
+            "model_metadata": {
+              "seed": 1701,
+              "artifact_task": "execution_pass_rate_regression",
+              "target": "pass_rate",
+              "parameters": {
+                "C": 0.1,
+                "max_iter": 5000,
+                "dual": "auto"
+              }
+            },
+            "limitations": [
+              "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+              "The training release does not provide problem text in this split.",
+              "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+            ],
+            "reason": null,
+            "code_block_index": null
+          }
+        },
+        "limitations": [
+          "Static checks report syntax and selected patterns; they do not prove program correctness or safety.",
+          "Submitted code execution uses local Docker restrictions, which are not a production-grade security guarantee.",
+          "Python process timing includes interpreter startup and shutdown; it is not a pure algorithm benchmark.",
+          "Cgroup memory, when available, is whole-container peak memory and includes the Python runtime and sandbox overhead.",
+          "Explanation verification uses a small curated Python documentation corpus and explicit rules; it can miss claims and is not a guarantee of factual correctness.",
+          "Insufficient evidence means the current corpus or rules did not establish a result; it does not mean the claim is false."
+        ],
+        "summary_note": "This report presents independent observations. The ML reliability signal is a dataset-domain prediction and is not combined with CodeGuard verification into an overall score."
+      }
+    },
+    {
+      "case_id": "risk",
+      "title": "Risky file operation contained by the sandbox",
+      "input": {
+        "question": "Write a short marker to a temporary file and return the number of characters written.",
+        "raw_response": "Lists are mutable.\n\n```python\ndef solution():\n    return open('/tmp/codeguard-phase18-marker.txt', 'w', encoding='utf-8').write('contained')\n```",
+        "extracted_python": "def solution():\n    return open('/tmp/codeguard-phase18-marker.txt', 'w', encoding='utf-8').write('contained')",
+        "extracted_explanation": "Lists are mutable."
+      },
+      "expected_behavior": {
+        "ast_status": "valid_with_risks",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Supported"
+      },
+      "observed_behavior": {
+        "ast_status": "valid_with_risks",
+        "execution_status": "Passed",
+        "test_status": "passed",
+        "claim_status": "Supported"
+      },
+      "expectations_met": true,
+      "ast_result": {
+        "status": "valid_with_risks",
+        "message": "Syntax is valid, but static checks found operations that need review. This is not a safety guarantee.",
+        "findings": [
+          {
+            "rule": "risky_call",
+            "message": "Call to 'open' can evaluate dynamic code, access files, or interact with the system; review it carefully.",
+            "line": 2
+          }
+        ]
+      },
+      "docker_execution_result": {
+        "status": "Passed",
+        "stdout": "9\n",
+        "stderr": "",
+        "exit_code": 0,
+        "duration_seconds": 1.709921,
+        "engine_check_seconds": 0.401319,
+        "code_execution_seconds": 0.06957,
+        "image_readiness_seconds": 0.204013,
+        "container_startup_seconds": 0.167848,
+        "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+        "docker_run_seconds": 0.685608,
+        "docker_overhead_estimate_seconds": 0.44819,
+        "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+        "memory_peak_bytes": 16990208,
+        "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+        "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+      },
+      "test_results": [
+        {
+          "test_name": "Test 1",
+          "status": "passed",
+          "expected_output": "9",
+          "inputs_json": "[]",
+          "actual_output": "9",
+          "error_message": "",
+          "duration_seconds": 1.844353,
+          "code_execution_seconds": 0.127054,
+          "memory_peak_bytes": 22700032,
+          "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+          "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+        }
+      ],
+      "performance_result": {
+        "measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.06957,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.401319,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.204013,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.167848,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.685608,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.44819,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 16990208,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.127054,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22700032,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "interpretation": "Measured by the existing Docker supervisor and runner; includes interpreter and container overhead."
+      },
+      "extracted_claims": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Insufficient evidence",
+          "reason": "This appears to be a factual assertion, but no trusted documentation evidence is connected yet.",
+          "evidence_text": ""
+        }
+      ],
+      "evidence_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "chunks": [
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1 More on Lists; 5.3 Tuples and Sequences",
+              "fact_key": "list_mutability",
+              "polarity": true,
+              "chunk_id": "tutorial-data-lists-mutability#1",
+              "text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "retrieval_score": 0.423851,
+              "retrieval_seconds": 0.00017110002227127552
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.3 Tuples and Sequences",
+              "fact_key": "tuple_mutability",
+              "polarity": false,
+              "chunk_id": "tutorial-data-tuples-immutable#1",
+              "text": "Tuples are immutable: assigning to an individual tuple item is not allowed. A tuple may contain a mutable object, but that does not make the tuple's own item bindings mutable.",
+              "retrieval_score": 0.254643,
+              "retrieval_seconds": 0.00017110002227127552
+            },
+            {
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "section": "5.1.3 List Comprehensions",
+              "fact_key": "list_comprehension_new_list",
+              "polarity": true,
+              "chunk_id": "tutorial-list-comprehension#1",
+              "text": "A list comprehension evaluates an expression for items selected by its for and optional if clauses, producing a new list.",
+              "retrieval_score": 0.223413,
+              "retrieval_seconds": 0.00017110002227127552
+            }
+          ]
+        }
+      ],
+      "claim_verification_results": [
+        {
+          "claim_text": "Lists are mutable.",
+          "status": "Supported",
+          "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+          "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+          "source": "Python Software Foundation",
+          "title": "The Python Tutorial: Data Structures",
+          "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "retrieval_score": 0.423851,
+          "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+          "retrieval_seconds": 6.38000201433897e-05,
+          "rule_result": "Supported",
+          "ml_result": null,
+          "ml_confidence": null,
+          "verification_method": "rule",
+          "ml_review_required": false
+        }
+      ],
+      "ml_reliability_prediction": {
+        "status": "predicted",
+        "task": "pass_rate_prediction",
+        "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+        "prediction_range": [
+          0.0,
+          1.0
+        ],
+        "prediction": 0.5596664115123515,
+        "confidence": null,
+        "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+        "model": "linear_svr_c0_1",
+        "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+        "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+        "dataset_size": {
+          "downloaded_records": 60000,
+          "usable_records": 53401,
+          "reported_full_python_records": 1398166
+        },
+        "model_metadata": {
+          "seed": 1701,
+          "artifact_task": "execution_pass_rate_regression",
+          "target": "pass_rate",
+          "parameters": {
+            "C": 0.1,
+            "max_iter": 5000,
+            "dual": "auto"
+          }
+        },
+        "feature_fields": [
+          "code_chars",
+          "code_lines",
+          "dangerous_api_mentions",
+          "syntax_valid",
+          "ast_nodes",
+          "functions",
+          "classes",
+          "imports",
+          "loops",
+          "branches",
+          "try_blocks",
+          "comprehensions",
+          "source",
+          "dataset",
+          "difficulty"
+        ],
+        "feature_summary": {
+          "code_chars": 110.0,
+          "code_lines": 2.0,
+          "syntax_valid": 1.0,
+          "ast_nodes": 15.0,
+          "functions": 1.0,
+          "imports": 0.0,
+          "loops": 0.0,
+          "branches": 0.0
+        },
+        "limitations": [
+          "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+          "The training release does not provide problem text in this split.",
+          "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+        ]
+      },
+      "final_output": {
+        "report_version": 2,
+        "evaluation": {
+          "id": 5,
+          "created_at_utc": "2026-09-27T09:38:43+00:00",
+          "question": "Write a short marker to a temporary file and return the number of characters written.",
+          "model_or_source": "Phase 18 deterministic demonstration"
+        },
+        "code_blocks": [
+          {
+            "block_index": 1,
+            "code": "def solution():\n    return open('/tmp/codeguard-phase18-marker.txt', 'w', encoding='utf-8').write('contained')",
+            "static_status": "valid_with_risks",
+            "static_message": "Syntax is valid, but static checks found operations that need review. This is not a safety guarantee.",
+            "findings": [
+              "Call to 'open' can evaluate dynamic code, access files, or interact with the system; review it carefully."
+            ]
+          }
+        ],
+        "test_results": [
+          {
+            "id": 5,
+            "test_name": "Test 1",
+            "inputs_json": "[]",
+            "status": "passed",
+            "expected_output": "9",
+            "actual_output": "9",
+            "error_message": ""
+          }
+        ],
+        "test_summary": {
+          "total": 1,
+          "passed": 1,
+          "failed_or_other": 0,
+          "pass_percentage": 100.0
+        },
+        "performance_measurements": [
+          {
+            "metric_name": "python_process_wall_time",
+            "metric_value": 0.06957,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "docker_engine_check_time",
+            "metric_value": 0.401319,
+            "unit": "seconds",
+            "measurement_type": "Host-observed Docker engine check"
+          },
+          {
+            "metric_name": "image_readiness_check_time",
+            "metric_value": 0.204013,
+            "unit": "seconds",
+            "measurement_type": "Host-observed local image inspection"
+          },
+          {
+            "metric_name": "container_startup_time",
+            "metric_value": 0.167848,
+            "unit": "seconds",
+            "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+          },
+          {
+            "metric_name": "docker_run_wall_time",
+            "metric_value": 0.685608,
+            "unit": "seconds",
+            "measurement_type": "Host-observed docker run lifetime"
+          },
+          {
+            "metric_name": "docker_overhead_estimate",
+            "metric_value": 0.44819,
+            "unit": "seconds",
+            "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+          },
+          {
+            "metric_name": "container_memory_peak",
+            "metric_value": 16990208.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          {
+            "metric_name": "function_test_1_python_process_wall_time",
+            "metric_value": 0.127054,
+            "unit": "seconds",
+            "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+          },
+          {
+            "metric_name": "function_test_1_container_memory_peak",
+            "metric_value": 22700032.0,
+            "unit": "bytes",
+            "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          }
+        ],
+        "explanation": {
+          "text": "Lists are mutable.",
+          "claims": [
+            {
+              "claim_index": 1,
+              "claim_text": "Lists are mutable.",
+              "status": "Supported",
+              "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+              "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+              "source": "Python Software Foundation",
+              "title": "The Python Tutorial: Data Structures",
+              "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "retrieval_score": 0.423851,
+              "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+              "retrieval_seconds": 6.38000201433897e-05,
+              "rule_result": "Supported",
+              "ml_result": null,
+              "ml_confidence": null,
+              "verification_method": "rule",
+              "ml_review_required": 0
+            }
+          ],
+          "status_counts": {
+            "Supported": 1
+          }
+        },
+        "ml_reliability": {
+          "available": true,
+          "model": "linear_svr_c0_1",
+          "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+          "task": "pass_rate_prediction",
+          "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+          "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+          "dataset_size": {
+            "downloaded_records": 60000,
+            "usable_records": 53401,
+            "reported_full_python_records": 1398166
+          },
+          "prediction": 0.5596664115123515,
+          "prediction_range": [
+            0.0,
+            1.0
+          ],
+          "confidence": null,
+          "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+          "feature_fields": [
+            "code_chars",
+            "code_lines",
+            "dangerous_api_mentions",
+            "syntax_valid",
+            "ast_nodes",
+            "functions",
+            "classes",
+            "imports",
+            "loops",
+            "branches",
+            "try_blocks",
+            "comprehensions",
+            "source",
+            "dataset",
+            "difficulty"
+          ],
+          "feature_summary": {
+            "code_chars": 110.0,
+            "code_lines": 2.0,
+            "syntax_valid": 1.0,
+            "ast_nodes": 15.0,
+            "functions": 1.0,
+            "imports": 0.0,
+            "loops": 0.0,
+            "branches": 0.0
+          },
+          "model_metadata": {
+            "seed": 1701,
+            "artifact_task": "execution_pass_rate_regression",
+            "target": "pass_rate",
+            "parameters": {
+              "C": 0.1,
+              "max_iter": 5000,
+              "dual": "auto"
+            }
+          },
+          "limitations": [
+            "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+            "The training release does not provide problem text in this split.",
+            "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+          ],
+          "reason": null,
+          "code_block_index": null
+        },
+        "signals": {
+          "static_ast_analysis": {
+            "available": true,
+            "code_blocks": [
+              {
+                "block_index": 1,
+                "code": "def solution():\n    return open('/tmp/codeguard-phase18-marker.txt', 'w', encoding='utf-8').write('contained')",
+                "static_status": "valid_with_risks",
+                "static_message": "Syntax is valid, but static checks found operations that need review. This is not a safety guarantee.",
+                "findings": [
+                  "Call to 'open' can evaluate dynamic code, access files, or interact with the system; review it carefully."
+                ]
+              }
+            ]
+          },
+          "docker_execution": {
+            "available": true,
+            "status": "Passed",
+            "stdout": "9\n",
+            "stderr": "",
+            "exit_code": 0,
+            "duration_seconds": 1.709921,
+            "engine_check_seconds": 0.401319,
+            "code_execution_seconds": 0.06957,
+            "image_readiness_seconds": 0.204013,
+            "container_startup_seconds": 0.167848,
+            "container_startup_measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate",
+            "docker_run_seconds": 0.685608,
+            "docker_overhead_estimate_seconds": 0.44819,
+            "docker_overhead_measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted",
+            "memory_peak_bytes": 16990208,
+            "code_time_measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup",
+            "memory_measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+          },
+          "function_tests": {
+            "available": true,
+            "execution_environment": "restricted Docker containers",
+            "total": 1,
+            "passed": 1,
+            "failed_or_other": 0,
+            "results": [
+              {
+                "id": 5,
+                "test_name": "Test 1",
+                "inputs_json": "[]",
+                "status": "passed",
+                "expected_output": "9",
+                "actual_output": "9",
+                "error_message": ""
+              }
+            ]
+          },
+          "performance_measurement": {
+            "available": true,
+            "measurements": [
+              {
+                "metric_name": "python_process_wall_time",
+                "metric_value": 0.06957,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "docker_engine_check_time",
+                "metric_value": 0.401319,
+                "unit": "seconds",
+                "measurement_type": "Host-observed Docker engine check"
+              },
+              {
+                "metric_name": "image_readiness_check_time",
+                "metric_value": 0.204013,
+                "unit": "seconds",
+                "measurement_type": "Host-observed local image inspection"
+              },
+              {
+                "metric_name": "container_startup_time",
+                "metric_value": 0.167848,
+                "unit": "seconds",
+                "measurement_type": "Docker engine StartedAt timestamp compared with Windows host clock; approximate"
+              },
+              {
+                "metric_name": "docker_run_wall_time",
+                "metric_value": 0.685608,
+                "unit": "seconds",
+                "measurement_type": "Host-observed docker run lifetime"
+              },
+              {
+                "metric_name": "docker_overhead_estimate",
+                "metric_value": 0.44819,
+                "unit": "seconds",
+                "measurement_type": "Approximate remaining docker run time after subtracting in-container process wall time; includes supervisor and teardown; container startup estimate is also subtracted"
+              },
+              {
+                "metric_name": "container_memory_peak",
+                "metric_value": 16990208.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              },
+              {
+                "metric_name": "function_test_1_python_process_wall_time",
+                "metric_value": 0.127054,
+                "unit": "seconds",
+                "measurement_type": "In-container child-process wall time measured with time.perf_counter_ns; includes Python interpreter startup and exit, excludes Docker/image startup"
+              },
+              {
+                "metric_name": "function_test_1_container_memory_peak",
+                "metric_value": 22700032.0,
+                "unit": "bytes",
+                "measurement_type": "Linux cgroup v2 memory.peak; whole container high-water mark, including Python runtime and sandbox overhead"
+              }
+            ]
+          },
+          "explanation_claims": {
+            "available": true,
+            "claims": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 6.38000201433897e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "evidence_retrieval": {
+            "available": true,
+            "claims": [
+              {
+                "claim_text": "Lists are mutable.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1"
+              }
+            ]
+          },
+          "claim_verification": {
+            "total": 1,
+            "status_counts": {
+              "Supported": 1
+            },
+            "results": [
+              {
+                "claim_index": 1,
+                "claim_text": "Lists are mutable.",
+                "status": "Supported",
+                "reason": "The retrieved documentation directly agrees with the recognized claim rule.",
+                "evidence_text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+                "source": "Python Software Foundation",
+                "title": "The Python Tutorial: Data Structures",
+                "source_url": "https://docs.python.org/3/tutorial/datastructures.html",
+                "retrieval_score": 0.423851,
+                "evidence_chunk_id": "tutorial-data-lists-mutability#1",
+                "retrieval_seconds": 6.38000201433897e-05,
+                "rule_result": "Supported",
+                "ml_result": null,
+                "ml_confidence": null,
+                "verification_method": "rule",
+                "ml_review_required": 0
+              }
+            ]
+          },
+          "ml_reliability": {
+            "available": true,
+            "model": "linear_svr_c0_1",
+            "model_version": "eadf535931451525f3e5621d0f960c240bc62fd9",
+            "task": "pass_rate_prediction",
+            "task_description": "Predict source-recorded execution test pass rate for competitive-programming Python solutions. This is not a general code-correctness or explanation-verification score.",
+            "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+            "dataset_size": {
+              "downloaded_records": 60000,
+              "usable_records": 53401,
+              "reported_full_python_records": 1398166
+            },
+            "prediction": 0.5596664115123515,
+            "prediction_range": [
+              0.0,
+              1.0
+            ],
+            "confidence": null,
+            "confidence_note": "Regression output; no calibrated confidence or uncertainty interval is available.",
+            "feature_fields": [
+              "code_chars",
+              "code_lines",
+              "dangerous_api_mentions",
+              "syntax_valid",
+              "ast_nodes",
+              "functions",
+              "classes",
+              "imports",
+              "loops",
+              "branches",
+              "try_blocks",
+              "comprehensions",
+              "source",
+              "dataset",
+              "difficulty"
+            ],
+            "feature_summary": {
+              "code_chars": 110.0,
+              "code_lines": 2.0,
+              "syntax_valid": 1.0,
+              "ast_nodes": 15.0,
+              "functions": 1.0,
+              "imports": 0.0,
+              "loops": 0.0,
+              "branches": 0.0
+            },
+            "model_metadata": {
+              "seed": 1701,
+              "artifact_task": "execution_pass_rate_regression",
+              "target": "pass_rate",
+              "parameters": {
+                "C": 0.1,
+                "max_iter": 5000,
+                "dual": "auto"
+              }
+            },
+            "limitations": [
+              "This auxiliary signal estimates dataset-domain source-recorded pass rate; it is not general code correctness, factual correctness, or explanation verification.",
+              "The training release does not provide problem text in this split.",
+              "This prediction does not execute or prove code correctness and is not a human-verified CodeGuard label."
+            ],
+            "reason": null,
+            "code_block_index": null
+          }
+        },
+        "limitations": [
+          "Static checks report syntax and selected patterns; they do not prove program correctness or safety.",
+          "Submitted code execution uses local Docker restrictions, which are not a production-grade security guarantee.",
+          "Python process timing includes interpreter startup and shutdown; it is not a pure algorithm benchmark.",
+          "Cgroup memory, when available, is whole-container peak memory and includes the Python runtime and sandbox overhead.",
+          "Explanation verification uses a small curated Python documentation corpus and explicit rules; it can miss claims and is not a guarantee of factual correctness.",
+          "Insufficient evidence means the current corpus or rules did not establish a result; it does not mean the claim is false."
+        ],
+        "summary_note": "This report presents independent observations. The ML reliability signal is a dataset-domain prediction and is not combined with CodeGuard verification into an overall score."
+      }
+    }
+  ]
+}

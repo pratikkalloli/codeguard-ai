@@ -1,0 +1,82 @@
+{
+  "used_sources": [
+    {
+      "name": "Python documentation passages curated in CodeGuard",
+      "url": "https://docs.python.org/3/",
+      "license": "Python Software Foundation License Version 2",
+      "records": 30,
+      "fields": [
+        "claim",
+        "evidence",
+        "label",
+        "data_origin",
+        "source",
+        "source_url",
+        "license",
+        "topic",
+        "fact_key",
+        "evidence_chunk_id",
+        "source_section",
+        "source_record_id",
+        "leakage_group",
+        "label_reason",
+        "question_context",
+        "title"
+      ],
+      "labels": [
+        "SUPPORTED",
+        "CONTRADICTED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "relevance": "Primary Python semantics evidence; claim wording is synthetic.",
+      "limitations": "The repository's existing 12 short passages, not the complete Python documentation."
+    }
+  ],
+  "candidates": [
+    {
+      "name": "FEVER",
+      "url": "https://fever.ai/dataset/fever.html",
+      "license": "Wikipedia article terms or CC BY-SA 3.0 where terms unavailable (official notice)",
+      "records": 185445,
+      "fields": [
+        "id",
+        "label",
+        "claim",
+        "evidence"
+      ],
+      "labels": [
+        "SUPPORTS",
+        "REFUTES",
+        "NOT ENOUGH INFO"
+      ],
+      "claim_present": true,
+      "evidence_present": "Evidence sets for supported/refuted; NEI uses null evidence references.",
+      "relevance": "General textual claim verification, but Wikipedia subject domain is unlike Python documentation.",
+      "mapping": "Potential label mapping exists, but evidence must be dereferenced and converted; NEI placeholder is not evidence text.",
+      "limitations": "Out-of-domain; Wikipedia-derived source/licensing obligations; excluded from final data."
+    },
+    {
+      "name": "SciFact",
+      "url": "https://github.com/allenai/scifact",
+      "license": "Claims/evidence annotations CC BY 4.0; abstract corpus ODC-By 1.0",
+      "records": "about 1.4K claims",
+      "fields": [
+        "id",
+        "claim",
+        "evidence",
+        "cited_doc_ids"
+      ],
+      "labels": [
+        "SUPPORT",
+        "CONTRADICT"
+      ],
+      "claim_present": true,
+      "evidence_present": "Sentence-indexed rationales in biomedical abstracts.",
+      "relevance": "Claim/evidence shape is close, but biomedical subject matter is not Python semantics.",
+      "mapping": "SUPPORT→SUPPORTED, CONTRADICT→CONTRADICTED; no reliable INSUFFICIENT_EVIDENCE class in the released labeled claims.",
+      "limitations": "Different domain and label coverage; corpus text has a separate ODC-By license; excluded."
+    }
+  ],
+  "used_public_datasets": [],
+  "exclusion_policy": "No dataset was added solely for scale. Candidates must have relevant domain, usable claim plus evidence text, mappable labels, and clear source terms."
+}

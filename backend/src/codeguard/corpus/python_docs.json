@@ -1,0 +1,122 @@
+[
+  {
+    "doc_id": "tutorial-data-lists-mutability",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.1 More on Lists; 5.3 Tuples and Sequences",
+    "text": "Lists are mutable data structures. Methods such as append, insert, remove, pop, sort, and reverse change the existing list. Tuples are immutable, although a tuple can contain a separate mutable object such as a list.",
+    "fact_key": "list_mutability",
+    "polarity": true
+  },
+  {
+    "doc_id": "tutorial-data-tuples-immutable",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.3 Tuples and Sequences",
+    "text": "Tuples are immutable: assigning to an individual tuple item is not allowed. A tuple may contain a mutable object, but that does not make the tuple's own item bindings mutable.",
+    "fact_key": "tuple_mutability",
+    "polarity": false
+  },
+  {
+    "doc_id": "tutorial-dict-order",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.5 Dictionaries",
+    "text": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+    "fact_key": "dict_insertion_order",
+    "polarity": true
+  },
+  {
+    "doc_id": "tutorial-set-order",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.4 Sets",
+    "text": "A set is an unordered collection with no duplicate elements. Iterating over a set or printing it can produce elements in an order different from what a reader expects.",
+    "fact_key": "set_insertion_order",
+    "polarity": false
+  },
+  {
+    "doc_id": "tutorial-list-comprehension",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.1.3 List Comprehensions",
+    "text": "A list comprehension evaluates an expression for items selected by its for and optional if clauses, producing a new list.",
+    "fact_key": "list_comprehension_new_list",
+    "polarity": true
+  },
+  {
+    "doc_id": "tutorial-dict-get",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.5 Dictionaries",
+    "text": "Dictionary subscription with a missing key raises KeyError. The get method returns None by default for a missing key, or returns the caller-provided default value.",
+    "fact_key": "dict_get_missing_key",
+    "polarity": true
+  },
+  {
+    "doc_id": "tutorial-list-queue",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Data Structures",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "section": "5.1.2 Using Lists as Queues",
+    "text": "A list can represent a queue, but inserts and pops at the beginning are slow because the other elements must shift. The tutorial recommends collections.deque for efficient operations at both ends.",
+    "fact_key": "list_front_queue_performance",
+    "polarity": false
+  },
+  {
+    "doc_id": "builtins-sorted-stable",
+    "source": "Python Software Foundation",
+    "title": "Built-in Functions",
+    "url": "https://docs.python.org/3/library/functions.html#sorted",
+    "section": "sorted(iterable, *, key=None, reverse=False)",
+    "text": "The built-in sorted function is guaranteed to be stable. A stable sort preserves the relative order of elements that compare equal.",
+    "fact_key": "sorted_stability",
+    "polarity": true
+  },
+  {
+    "doc_id": "reference-function-definitions",
+    "source": "Python Software Foundation",
+    "title": "The Python Language Reference: Compound Statements",
+    "url": "https://docs.python.org/3/reference/compound_stmts.html#function-definitions",
+    "section": "Function definitions",
+    "text": "Executing a function definition binds a function object to its name. The function body is not executed by defining it; the body runs when the function is called.",
+    "fact_key": "function_definition_executes_body",
+    "polarity": false
+  },
+  {
+    "doc_id": "reference-for-loop-else",
+    "source": "Python Software Foundation",
+    "title": "The Python Language Reference: Compound Statements",
+    "url": "https://docs.python.org/3/reference/compound_stmts.html#the-for-statement",
+    "section": "The for statement",
+    "text": "A for loop's optional else suite runs when the loop finishes normally because the iterator is exhausted. It does not run when a break statement terminates the loop.",
+    "fact_key": "for_else_after_break",
+    "polarity": false
+  },
+  {
+    "doc_id": "tutorial-exceptions-propagate",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Errors and Exceptions",
+    "url": "https://docs.python.org/3/tutorial/errors.html",
+    "section": "8. Errors and Exceptions",
+    "text": "If an exception is not handled by an except clause, it is propagated to the caller and may continue up the call stack.",
+    "fact_key": "unhandled_exception_propagates",
+    "polarity": true
+  },
+  {
+    "doc_id": "tutorial-file-with",
+    "source": "Python Software Foundation",
+    "title": "The Python Tutorial: Input and Output",
+    "url": "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files",
+    "section": "Reading and Writing Files",
+    "text": "Using with open(...) as file is recommended for files. The context manager closes the file when the with block finishes, even when an exception occurs.",
+    "fact_key": "with_open_closes_file",
+    "polarity": true
+  }
+]

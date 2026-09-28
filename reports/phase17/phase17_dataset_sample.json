@@ -1,0 +1,82 @@
+[
+  {
+    "record_id": "21306138af031d61bb31cd6636057168",
+    "question_id": "c0d4209f929db2b5bf3526a47a2520b0",
+    "source": "codechef",
+    "dataset": "taco",
+    "difficulty": "UNKNOWN_DIFFICULTY",
+    "license": "apache-2.0",
+    "pass_rate": 0.9,
+    "code": "T = int(input())\nfor _ in range(T):\n    s = input().strip()\n    stack = []\n    valid = True\n    for c in s:\n        if c == '(':\n            stack.append(c)\n        elif c == ')':\n            if not stack:\n                valid = False\n                break\n            stack.pop()\n    if valid and not stack:\n        print(\"YES\")\n    else:\n        print(\"NO\")"
+  },
+  {
+    "record_id": "baa44b02513c837f8fbc6d7519b0ade9",
+    "question_id": "5378dbbc2f9928bfe9b3a196e3a45a0b",
+    "source": "codechef",
+    "dataset": "code_contests",
+    "difficulty": "1",
+    "license": "apache-2.0",
+    "pass_rate": 1.0,
+    "code": "import sys\n\ndef main():\n    T = int(sys.stdin.readline())\n    for _ in range(T):\n        R = int(sys.stdin.readline())\n        R_sq = R * R\n        points = []\n        for _ in range(3):\n            x, y = map(int, sys.stdin.readline().split())\n            points.append((x, y))\n        # Compute pairwise squared distances\n        a, b, c = points\n        d_ab = (a[0] - b[0])**2 + (a[1] - b[1])**2\n        d_ac = (a[0] - c[0])**2 + (a[1] - c[1])**2\n        d_bc = (b[0] - c[0])**2 + (b[1] - c[1])**2\n        count = 0\n        if d_ab <= R_sq:\n            count += 1\n        if d_ac <= R_sq:\n            count += 1\n        if d_bc <= R_sq:\n            count += 1\n        print(\"yes\" if count >= 2 else \"no\")\n\nif __name__ == \"__main__\":\n    main()"
+  },
+  {
+    "record_id": "ce9d23a9da55100de9005211bc9e95df",
+    "question_id": "5295c0a98f0025a377be5340304aaae3",
+    "source": "codechef",
+    "dataset": "taco",
+    "difficulty": "MEDIUM",
+    "license": "apache-2.0",
+    "pass_rate": 1.0,
+    "code": "import math\n\nn = int(input())\nfor _ in range(n):\n    a_str, b_str = input().split()\n    a = int(a_str)\n    if a == 0:\n        if all(c == '0' for c in b_str):\n            print(0)\n        else:\n            print(int(b_str))\n    else:\n        mod = 0\n        for c in b_str:\n            mod = (mod * 10 + int(c)) % a\n        print(math.gcd(a, mod))"
+  },
+  {
+    "record_id": "4cc6ce164b3a172dbed5c8843da5da5e",
+    "question_id": "e2e75d9d7d47d6f22c7eb408f8911af8",
+    "source": "codechef",
+    "dataset": "apps",
+    "difficulty": "interview",
+    "license": "apache-2.0",
+    "pass_rate": 1.0,
+    "code": "import bisect\n\ndef count_balanced_substrings(s):\n    n = len(s)\n    count_4 = [0] * (n + 1)\n    for i in range(1, n+1):\n        count_4[i] = count_4[i-1] + (1 if s[i-1] == '4' else 0)\n    ans = 0\n    for L in range(1, n+1):\n        a = count_4[L-1]\n        # Binary search for the smallest R >= L where count_4[R] > a\n        # The count_4 array is non-decreasing, so we can use bisect\n        # We need to search in the subarray count_4[L..n]\n        # Using bisect_right to find the first element > a\n        R = bisect.bisect_right(count_4, a, lo=L, hi=n+1)\n        if R <= n:\n            ans += (n - R + 1)\n    return ans\n\nT = int(input())\nfor _ in range(T):\n    s = input().strip()\n    print(count_balanced_substrings(s))"
+  },
+  {
+    "record_id": "832af82ddd9330b0e27754108ec3b1ae",
+    "question_id": "06aaff0ac61dca6506122cd03fa73ab0",
+    "source": "codechef",
+    "dataset": "code_contests",
+    "difficulty": "2",
+    "license": "apache-2.0",
+    "pass_rate": 1.0,
+    "code": "def is_palindrome(s):\n    return s == s[::-1]\n\nT = int(input())\nfor _ in range(T):\n    s = input().strip()\n    if is_palindrome(s):\n        print(\"YES\")\n        continue\n    left = 0\n    right = len(s) - 1\n    found = False\n    while left < right:\n        if s[left] == s[right]:\n            left += 1\n            right -= 1\n        else:\n            # Check two possibilities: delete left or delete right\n            s1 = s[left+1 : right+1]  # Delete left character\n            s2 = s[left : right]      # Delete right character\n            if is_palindrome(s1) or is_palindrome(s2):\n                print(\"YES\")\n            else:\n                print(\"NO\")\n            found = True\n            break\n    if not found:\n        print(\"YES\")"
+  },
+  {
+    "record_id": "9995cc95b723bf817356a698736e292c",
+    "question_id": "c9b38a543b4ef0e6ff5c3723ec010ebd",
+    "source": "codeforces",
+    "dataset": "code_contests",
+    "difficulty": "2200",
+    "license": "apache-2.0",
+    "pass_rate": 0.26,
+    "code": "import sys\nfrom collections import deque\n\ndef main():\n    input = sys.stdin.read().split()\n    idx = 0\n    n = int(input[idx]); idx += 1\n    m = int(input[idx]); idx += 1\n    k = int(input[idx]); idx += 1\n\n    adj = [[] for _ in range(n + 1)]  # 1-based indexing\n    core_degree = [0] * (n + 1)\n    in_core = [False] * (n + 1)\n    current_degree = [0] * (n + 1)\n    ans = []\n    core_size = 0\n\n    for _ in range(m):\n        u = int(input[idx]); idx += 1\n        v = int(input[idx]); idx += 1\n        adj[u].append(v)\n        adj[v].append(u)\n        current_degree[u] += 1\n        current_degree[v] += 1\n\n        queue = deque()\n        # Update core_degree for the nodes if their neighbors are in core\n        if in_core[u]:\n            core_degree[v] += 1\n            if not in_core[v] and core_degree[v] >= k:\n                queue.append(v)\n        if in_core[v]:\n            core_degree[u] += 1\n            if not in_core[u] and core_degree[u] >= k:\n                queue.append(u)\n        \n        # Also check if the nodes themselves can be added to the core now\n        if not in_core[u] and core_degree[u] >= k and current_degree[u] >= k:\n            queue.append(u)\n        if not in_core[v] and core_degree[v] >= k and current_degree[v] >= k:\n            queue.append(v)\n        \n        # Process the queue\n        while queue:\n            node = queue.popleft()\n            if in_core[node]:\n                continue\n            # Check again in case the core_degree was updated after being enqueued\n            if core_degree[node] >= k and current_degree[node] >= k:\n                in_core[node] = True\n                core_size += 1\n                for neighbor in adj[node]:\n                    if not in_core[neighbor]:\n                        core_degree[neighbor] += 1\n                        if core_degree[neighbor] >= k and current_degree[neighbor] >= k:\n                            queue.append(neighbor)\n        ans.append(core_size)\n    \n    for a in ans:\n        print(a)\n\nif __name__ == '__main__':\n    main()"
+  },
+  {
+    "record_id": "ba04e64196df5d86c55679ddeb747095",
+    "question_id": "d8321e50eedc1aa555c804b13f80d197",
+    "source": "codeforces",
+    "dataset": "code_contests",
+    "difficulty": "800",
+    "license": "apache-2.0",
+    "pass_rate": 1.0,
+    "code": "n = int(input())\ns = input().strip()\ncount_8 = s.count('8')\nmax_phones = n // 11\nprint(min(count_8, max_phones))"
+  },
+  {
+    "record_id": "57ca326aded4782f2ff422c878916ed6",
+    "question_id": "11844e142b5a486ec5d9cdac9a026562",
+    "source": "codeforces",
+    "dataset": "code_contests",
+    "difficulty": "1000",
+    "license": "apache-2.0",
+    "pass_rate": 1.0,
+    "code": "q = int(input())\nfor _ in range(q):\n    l, r, d = map(int, input().split())\n    if d < l:\n        print(d)\n    else:\n        print(((r // d) + 1) * d)"
+  }
+]

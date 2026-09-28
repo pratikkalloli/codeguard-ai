@@ -1,0 +1,272 @@
+[
+  {
+    "fact_key": "range_stop",
+    "topic": "range",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — range",
+    "evidence": "The given end point is never part of the generated sequence; range(10) generates 10 values.",
+    "supported_claim": "Python range(10) excludes 10.",
+    "contradicted_claim": "Python range(10) includes 10."
+  },
+  {
+    "fact_key": "range_stop",
+    "topic": "range",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — range",
+    "evidence": "The given end point is never part of the generated sequence; range(10) generates 10 values.",
+    "supported_claim": "Python range(10) excludes 10.",
+    "contradicted_claim": "Python range(10) includes 10."
+  },
+  {
+    "fact_key": "for_else_break",
+    "topic": "loops",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — for statements",
+    "evidence": "The else clause executes after the for loop completes normally, but not when the loop is terminated by a break statement.",
+    "supported_claim": "A for-else suite is skipped when the loop exits with break.",
+    "contradicted_claim": "A for-else suite runs after a break exits the loop."
+  },
+  {
+    "fact_key": "for_else_break",
+    "topic": "loops",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — for statements",
+    "evidence": "The else clause executes after the for loop completes normally, but not when the loop is terminated by a break statement.",
+    "supported_claim": "A for-else suite is skipped when the loop exits with break.",
+    "contradicted_claim": "A for-else suite runs after a break exits the loop."
+  },
+  {
+    "fact_key": "default_once",
+    "topic": "functions",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — default argument values",
+    "evidence": "The default value is evaluated only once. This makes a difference when the default is a mutable object such as a list or dictionary.",
+    "supported_claim": "A mutable default argument is evaluated once when its function is defined.",
+    "contradicted_claim": "A mutable default argument is freshly evaluated on every function call."
+  },
+  {
+    "fact_key": "default_once",
+    "topic": "functions",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — default argument values",
+    "evidence": "The default value is evaluated only once. This makes a difference when the default is a mutable object such as a list or dictionary.",
+    "supported_claim": "A mutable default argument is evaluated once when its function is defined.",
+    "contradicted_claim": "A mutable default argument is freshly evaluated on every function call."
+  },
+  {
+    "fact_key": "fallthrough_none",
+    "topic": "functions",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — defining functions",
+    "evidence": "If a function definition does not include a return statement, it returns None.",
+    "supported_claim": "A Python function that reaches its end without return returns None.",
+    "contradicted_claim": "A Python function that reaches its end without return returns zero."
+  },
+  {
+    "fact_key": "fallthrough_none",
+    "topic": "functions",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — defining functions",
+    "evidence": "If a function definition does not include a return statement, it returns None.",
+    "supported_claim": "A Python function that reaches its end without return returns None.",
+    "contradicted_claim": "A Python function that reaches its end without return returns zero."
+  },
+  {
+    "fact_key": "function_scope",
+    "topic": "functions",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — defining functions",
+    "evidence": "When a variable is used in a function, the value is looked up in the local symbol table; the local symbol table is populated from the function's parameters and variables assigned in the function body.",
+    "supported_claim": "A name assigned in a function body is local by default.",
+    "contradicted_claim": "A name assigned in a function body is global by default."
+  },
+  {
+    "fact_key": "function_scope",
+    "topic": "functions",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "section": "Control flow — defining functions",
+    "evidence": "When a variable is used in a function, the value is looked up in the local symbol table; the local symbol table is populated from the function's parameters and variables assigned in the function body.",
+    "supported_claim": "A name assigned in a function body is local by default.",
+    "contradicted_claim": "A name assigned in a function body is global by default."
+  },
+  {
+    "fact_key": "iterator_protocol",
+    "topic": "iteration",
+    "url": "https://docs.python.org/3/tutorial/classes.html",
+    "section": "Classes — iterators",
+    "evidence": "The for statement calls iter() on the container object. The function returns an iterator object that defines __next__(), which accesses elements one at a time. When there are no more elements, __next__() raises StopIteration.",
+    "supported_claim": "A for loop obtains an iterator and advances it until StopIteration.",
+    "contradicted_claim": "A for loop must index each container and does not use an iterator."
+  },
+  {
+    "fact_key": "iterator_protocol",
+    "topic": "iteration",
+    "url": "https://docs.python.org/3/tutorial/classes.html",
+    "section": "Classes — iterators",
+    "evidence": "The for statement calls iter() on the container object. The function returns an iterator object that defines __next__(), which accesses elements one at a time. When there are no more elements, __next__() raises StopIteration.",
+    "supported_claim": "A for loop obtains an iterator and advances it until StopIteration.",
+    "contradicted_claim": "A for loop must index each container and does not use an iterator."
+  },
+  {
+    "fact_key": "generator_resume",
+    "topic": "iteration",
+    "url": "https://docs.python.org/3/tutorial/classes.html",
+    "section": "Classes — generators",
+    "evidence": "Each time next() is called on it, the generator resumes where it left off (it remembers all the data values and which statement was last executed).",
+    "supported_claim": "A generator resumes from its suspended state after yield.",
+    "contradicted_claim": "A generator restarts its function from the beginning after every yield."
+  },
+  {
+    "fact_key": "generator_resume",
+    "topic": "iteration",
+    "url": "https://docs.python.org/3/tutorial/classes.html",
+    "section": "Classes — generators",
+    "evidence": "Each time next() is called on it, the generator resumes where it left off (it remembers all the data values and which statement was last executed).",
+    "supported_claim": "A generator resumes from its suspended state after yield.",
+    "contradicted_claim": "A generator restarts its function from the beginning after every yield."
+  },
+  {
+    "fact_key": "generator_expression",
+    "topic": "iteration",
+    "url": "https://docs.python.org/3/tutorial/classes.html",
+    "section": "Classes — generator expressions",
+    "evidence": "Generator expressions are more memory friendly than equivalent list comprehensions.",
+    "supported_claim": "A generator expression avoids eagerly building the corresponding list.",
+    "contradicted_claim": "A generator expression always builds a full list before iteration."
+  },
+  {
+    "fact_key": "generator_expression",
+    "topic": "iteration",
+    "url": "https://docs.python.org/3/tutorial/classes.html",
+    "section": "Classes — generator expressions",
+    "evidence": "Generator expressions are more memory friendly than equivalent list comprehensions.",
+    "supported_claim": "A generator expression avoids eagerly building the corresponding list.",
+    "contradicted_claim": "A generator expression always builds a full list before iteration."
+  },
+  {
+    "fact_key": "string_immutable",
+    "topic": "strings",
+    "url": "https://docs.python.org/3/library/stdtypes.html",
+    "section": "Built-in types — text sequence type str",
+    "evidence": "Strings are immutable sequences of Unicode code points.",
+    "supported_claim": "Python strings are immutable.",
+    "contradicted_claim": "Python strings are mutable."
+  },
+  {
+    "fact_key": "string_immutable",
+    "topic": "strings",
+    "url": "https://docs.python.org/3/library/stdtypes.html",
+    "section": "Built-in types — text sequence type str",
+    "evidence": "Strings are immutable sequences of Unicode code points.",
+    "supported_claim": "Python strings are immutable.",
+    "contradicted_claim": "Python strings are mutable."
+  },
+  {
+    "fact_key": "str_index",
+    "topic": "strings",
+    "url": "https://docs.python.org/3/library/stdtypes.html",
+    "section": "Built-in types — text sequence type str",
+    "evidence": "The items of a string are Unicode code points. There is no separate character type; a character is represented by a string of length 1.",
+    "supported_claim": "Indexing a Python string produces a string of length one.",
+    "contradicted_claim": "Indexing a Python string produces a separate character type."
+  },
+  {
+    "fact_key": "str_index",
+    "topic": "strings",
+    "url": "https://docs.python.org/3/library/stdtypes.html",
+    "section": "Built-in types — text sequence type str",
+    "evidence": "The items of a string are Unicode code points. There is no separate character type; a character is represented by a string of length 1.",
+    "supported_claim": "Indexing a Python string produces a string of length one.",
+    "contradicted_claim": "Indexing a Python string produces a separate character type."
+  },
+  {
+    "fact_key": "bool_int",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — bool",
+    "evidence": "bool is a subclass of int (see Numeric Types — int, float, complex). In many numeric contexts, False and True behave like 0 and 1, respectively.",
+    "supported_claim": "bool is a subclass of int in Python.",
+    "contradicted_claim": "bool is not a subclass of int in Python."
+  },
+  {
+    "fact_key": "bool_int",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — bool",
+    "evidence": "bool is a subclass of int (see Numeric Types — int, float, complex). In many numeric contexts, False and True behave like 0 and 1, respectively.",
+    "supported_claim": "bool is a subclass of int in Python.",
+    "contradicted_claim": "bool is not a subclass of int in Python."
+  },
+  {
+    "fact_key": "all_empty",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — all",
+    "evidence": "Return True if all elements of the iterable are true (or if the iterable is empty).",
+    "supported_claim": "all([]) returns True.",
+    "contradicted_claim": "all([]) returns False."
+  },
+  {
+    "fact_key": "all_empty",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — all",
+    "evidence": "Return True if all elements of the iterable are true (or if the iterable is empty).",
+    "supported_claim": "all([]) returns True.",
+    "contradicted_claim": "all([]) returns False."
+  },
+  {
+    "fact_key": "any_empty",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — any",
+    "evidence": "Return True if any element of the iterable is true. If the iterable is empty, return False.",
+    "supported_claim": "any([]) returns False.",
+    "contradicted_claim": "any([]) returns True."
+  },
+  {
+    "fact_key": "any_empty",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — any",
+    "evidence": "Return True if any element of the iterable is true. If the iterable is empty, return False.",
+    "supported_claim": "any([]) returns False.",
+    "contradicted_claim": "any([]) returns True."
+  },
+  {
+    "fact_key": "enumerate_tuple",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — enumerate",
+    "evidence": "An enumerate object yields pairs containing a count (from start, which defaults to zero) and a value obtained from iterating over iterable.",
+    "supported_claim": "Each enumerate result is a pair containing a count and an item.",
+    "contradicted_claim": "enumerate returns only the current item and never a count."
+  },
+  {
+    "fact_key": "enumerate_tuple",
+    "topic": "built-ins",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "section": "Built-in functions — enumerate",
+    "evidence": "An enumerate object yields pairs containing a count (from start, which defaults to zero) and a value obtained from iterating over iterable.",
+    "supported_claim": "Each enumerate result is a pair containing a count and an item.",
+    "contradicted_claim": "enumerate returns only the current item and never a count."
+  },
+  {
+    "fact_key": "range_constant_memory",
+    "topic": "sequences",
+    "url": "https://docs.python.org/3/library/stdtypes.html",
+    "section": "Built-in types — range",
+    "evidence": "The range type represents an immutable sequence of numbers and is commonly used for looping a specific number of times. The advantage of the range type over a regular list is that a range object will always take the same (small) amount of memory, no matter the size of the range it represents.",
+    "supported_claim": "A range object uses a small, constant amount of memory as its represented sequence grows.",
+    "contradicted_claim": "A range object stores every represented integer in memory."
+  },
+  {
+    "fact_key": "range_constant_memory",
+    "topic": "sequences",
+    "url": "https://docs.python.org/3/library/stdtypes.html",
+    "section": "Built-in types — range",
+    "evidence": "The range type represents an immutable sequence of numbers and is commonly used for looping a specific number of times. The advantage of the range type over a regular list is that a range object will always take the same (small) amount of memory, no matter the size of the range it represents.",
+    "supported_claim": "A range object uses a small, constant amount of memory as its represented sequence grows.",
+    "contradicted_claim": "A range object stores every represented integer in memory."
+  }
+]

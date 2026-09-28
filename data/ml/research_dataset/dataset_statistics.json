@@ -1,0 +1,40 @@
+{
+  "class_distribution": {
+    "Contradicted": 28,
+    "Insufficient Evidence": 10,
+    "Supported": 28
+  },
+  "topic_distribution": {
+    "built-ins": 8,
+    "built-ins and sorting": 4,
+    "collections and mutability": 4,
+    "collections and performance": 2,
+    "comprehensions": 2,
+    "dictionaries": 2,
+    "dictionaries and exceptions": 2,
+    "exceptions": 2,
+    "file handling and exceptions": 2,
+    "functions": 11,
+    "iteration": 7,
+    "loops": 5,
+    "pilot out-of-scope example": 4,
+    "range": 3,
+    "sequences": 2,
+    "sets": 2,
+    "strings": 4
+  },
+  "origin_distribution": {
+    "synthetic": 66
+  },
+  "split_sizes": {
+    "train": 47,
+    "validation": 10,
+    "test": 9
+  },
+  "external_class_distribution": {
+    "Contradicted": 2,
+    "Insufficient Evidence": 2,
+    "Supported": 2
+  },
+  "human_verified_records": 0
+}

@@ -1,0 +1,123 @@
+{
+  "overview": {
+    "total_records": 31,
+    "class_distribution": {
+      "CONTRADICTED": 13,
+      "INSUFFICIENT_EVIDENCE": 5,
+      "SUPPORTED": 13
+    },
+    "origin_distribution": {
+      "synthetic": 31
+    },
+    "topic_distribution": {
+      "built-ins and sorting": 4,
+      "collections and mutability": 4,
+      "collections and performance": 2,
+      "comprehensions": 2,
+      "dictionaries": 2,
+      "dictionaries and exceptions": 2,
+      "exceptions": 2,
+      "file handling and exceptions": 2,
+      "functions": 2,
+      "loops": 2,
+      "pilot out-of-scope example": 5,
+      "sets": 2
+    },
+    "source_distribution": {
+      "No passage retrieved in pilot": 1,
+      "Python Software Foundation": 30
+    }
+  },
+  "quality": {
+    "missing_values": {
+      "claim": 0,
+      "evidence": 1,
+      "label": 0,
+      "data_origin": 0,
+      "source": 0,
+      "source_url": 1,
+      "license": 0,
+      "topic": 0,
+      "fact_key": 0,
+      "evidence_chunk_id": 0,
+      "source_section": 1,
+      "source_record_id": 0,
+      "leakage_group": 0,
+      "label_reason": 0,
+      "question_context": 0,
+      "title": 0
+    },
+    "evidence_coverage": 30,
+    "duplicate_evidence_count": 18,
+    "near_duplicate_pairs": [
+      {
+        "left": 0,
+        "right": 1,
+        "claim_similarity": 0.96,
+        "same_leakage_group": true
+      },
+      {
+        "left": 2,
+        "right": 3,
+        "claim_similarity": 0.9615,
+        "same_leakage_group": true
+      },
+      {
+        "left": 4,
+        "right": 5,
+        "claim_similarity": 0.9263,
+        "same_leakage_group": true
+      },
+      {
+        "left": 8,
+        "right": 9,
+        "claim_similarity": 0.9583,
+        "same_leakage_group": true
+      },
+      {
+        "left": 21,
+        "right": 22,
+        "claim_similarity": 0.9714,
+        "same_leakage_group": true
+      },
+      {
+        "left": 25,
+        "right": 26,
+        "claim_similarity": 0.9206,
+        "same_leakage_group": true
+      }
+    ],
+    "conflicting_labels": [],
+    "provenance_missing_source_url": 1
+  },
+  "split_sizes": {
+    "train": 22,
+    "validation": 5,
+    "test": 4
+  },
+  "split_class_distribution": {
+    "train": {
+      "CONTRADICTED": 10,
+      "INSUFFICIENT_EVIDENCE": 2,
+      "SUPPORTED": 10
+    },
+    "validation": {
+      "CONTRADICTED": 2,
+      "INSUFFICIENT_EVIDENCE": 1,
+      "SUPPORTED": 2
+    },
+    "test": {
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 2,
+      "SUPPORTED": 1
+    }
+  },
+  "limitations": [
+    "All 31 records are synthetic claim wording, not independent expert or human annotations.",
+    "No compatible public Python claim/evidence dataset was found and used; broad-domain fact-checking data were excluded for domain mismatch.",
+    "The dataset is small and based on a 12-passage curated Python documentation corpus; it is not representative of real AI explanations.",
+    "Contradictions are controlled polarity counterparts and may make labels lexically easy; labels reflect only the supplied passage.",
+    "Insufficient-evidence examples mean the provided passage does not establish the claim; this does not imply the claim is false.",
+    "Group integrity may produce split proportions differing from the nominal 70/15/15 target."
+  ]
+}

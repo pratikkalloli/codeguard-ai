@@ -1,0 +1,83 @@
+{
+  "total_records": 15,
+  "class_distribution": {
+    "SUPPORTED": 5,
+    "CONTRADICTED": 5,
+    "INSUFFICIENT_EVIDENCE": 5
+  },
+  "data_origin_distribution": {
+    "synthetic": 15
+  },
+  "missing_values": {
+    "claim": 0,
+    "evidence": 1,
+    "label": 0,
+    "data_origin": 0,
+    "claim_length": 0,
+    "evidence_length": 0,
+    "tfidf_similarity": 1,
+    "keyword_overlap": 0,
+    "fact_key": 5,
+    "question_context": 0,
+    "source": 1,
+    "title": 1,
+    "source_url": 1,
+    "source_section": 1,
+    "evidence_chunk_id": 1,
+    "leakage_group": 0,
+    "label_reason": 0
+  },
+  "exact_duplicate_count_removed": 0,
+  "near_duplicate_pairs_detected": [
+    {
+      "left_index": 0,
+      "right_index": 1,
+      "claim_similarity": 0.96,
+      "evidence_similarity": 1.0
+    },
+    {
+      "left_index": 2,
+      "right_index": 3,
+      "claim_similarity": 0.9615,
+      "evidence_similarity": 1.0
+    },
+    {
+      "left_index": 4,
+      "right_index": 5,
+      "claim_similarity": 0.9263,
+      "evidence_similarity": 1.0
+    },
+    {
+      "left_index": 8,
+      "right_index": 9,
+      "claim_similarity": 0.9583,
+      "evidence_similarity": 1.0
+    }
+  ],
+  "average_claim_length_words": 6.267,
+  "average_evidence_length_words": 26.133,
+  "dataset_version": "1.0.0-synthetic-pilot-20260926T111907013663Z",
+  "split_samples": {
+    "train": 9,
+    "validation": 3,
+    "test": 3
+  },
+  "split_class_distribution": {
+    "train": {
+      "SUPPORTED": 3,
+      "CONTRADICTED": 3,
+      "INSUFFICIENT_EVIDENCE": 3
+    },
+    "validation": {
+      "SUPPORTED": 1,
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 1
+    },
+    "test": {
+      "SUPPORTED": 1,
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 1
+    }
+  },
+  "split_policy": "group-disjoint by proposition or out-of-scope topic; actual proportions 60/20/20 because only five independent groups per label are available"
+}

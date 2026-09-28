@@ -1,0 +1,151 @@
+{
+  "dataset_version": "2.0.0-python-docs-synthetic-20260926",
+  "created_at_utc": "2026-09-26T11:47:49+00:00",
+  "total_records": 31,
+  "records_per_class": {
+    "CONTRADICTED": 13,
+    "INSUFFICIENT_EVIDENCE": 5,
+    "SUPPORTED": 13
+  },
+  "records_per_source": {
+    "No passage retrieved in pilot": 1,
+    "Python Software Foundation": 30
+  },
+  "records_per_topic": {
+    "built-ins and sorting": 4,
+    "collections and mutability": 4,
+    "collections and performance": 2,
+    "comprehensions": 2,
+    "dictionaries": 2,
+    "dictionaries and exceptions": 2,
+    "exceptions": 2,
+    "file handling and exceptions": 2,
+    "functions": 2,
+    "loops": 2,
+    "pilot out-of-scope example": 5,
+    "sets": 2
+  },
+  "data_origins": {
+    "synthetic": 31
+  },
+  "licenses": [
+    "CodeGuard-generated synthetic claim; no source passage included",
+    "PSF License Version 2 (Python documentation); attribution/source link retained"
+  ],
+  "source_urls": [
+    "https://docs.python.org/3/library/functions.html#sorted",
+    "https://docs.python.org/3/reference/compound_stmts.html#function-definitions",
+    "https://docs.python.org/3/reference/compound_stmts.html#the-for-statement",
+    "https://docs.python.org/3/tutorial/datastructures.html",
+    "https://docs.python.org/3/tutorial/errors.html",
+    "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files"
+  ],
+  "source_corpus_sha256": "3ece8bcc802394c68f880583f3f86909d9fa616a4937f790384e0e475a91c0c1",
+  "source_corpus_records": 12,
+  "duplicate_counts": {
+    "exact_claim_evidence_removed": 8
+  },
+  "near_duplicate_count": 6,
+  "conflicting_label_count": 0,
+  "split_method": "Deterministic seed-42 group assignment by evidence chunk; grouped evidence/paired claims remain together. Approximate 70/15/15 is secondary to group integrity.",
+  "split_sizes": {
+    "train": 22,
+    "validation": 5,
+    "test": 4
+  },
+  "split_class_distribution": {
+    "train": {
+      "CONTRADICTED": 10,
+      "INSUFFICIENT_EVIDENCE": 2,
+      "SUPPORTED": 10
+    },
+    "validation": {
+      "CONTRADICTED": 2,
+      "INSUFFICIENT_EVIDENCE": 1,
+      "SUPPORTED": 2
+    },
+    "test": {
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 2,
+      "SUPPORTED": 1
+    }
+  },
+  "feature_descriptions": {
+    "claim": "Claim text generated from explicit, narrow Python documentation propositions.",
+    "evidence": "Curated documentation passage associated with the claim; blank only where the existing pilot had no retrieved passage.",
+    "label": "SUPPORT/CONTRADICT based on direct passage semantics; INSUFFICIENT_EVIDENCE means the supplied evidence does not establish the claim, not that the claim is false.",
+    "topic": "Python topic associated with the source proposition.",
+    "fact_key": "Stable proposition identifier.",
+    "data_origin": "All examples are synthetic claim wording; source text/provenance is retained."
+  },
+  "quality": {
+    "missing_values": {
+      "claim": 0,
+      "evidence": 1,
+      "label": 0,
+      "data_origin": 0,
+      "source": 0,
+      "source_url": 1,
+      "license": 0,
+      "topic": 0,
+      "fact_key": 0,
+      "evidence_chunk_id": 0,
+      "source_section": 1,
+      "source_record_id": 0,
+      "leakage_group": 0,
+      "label_reason": 0,
+      "question_context": 0,
+      "title": 0
+    },
+    "evidence_coverage": 30,
+    "duplicate_evidence_count": 18,
+    "near_duplicate_pairs": [
+      {
+        "left": 0,
+        "right": 1,
+        "claim_similarity": 0.96,
+        "same_leakage_group": true
+      },
+      {
+        "left": 2,
+        "right": 3,
+        "claim_similarity": 0.9615,
+        "same_leakage_group": true
+      },
+      {
+        "left": 4,
+        "right": 5,
+        "claim_similarity": 0.9263,
+        "same_leakage_group": true
+      },
+      {
+        "left": 8,
+        "right": 9,
+        "claim_similarity": 0.9583,
+        "same_leakage_group": true
+      },
+      {
+        "left": 21,
+        "right": 22,
+        "claim_similarity": 0.9714,
+        "same_leakage_group": true
+      },
+      {
+        "left": 25,
+        "right": 26,
+        "claim_similarity": 0.9206,
+        "same_leakage_group": true
+      }
+    ],
+    "conflicting_labels": [],
+    "provenance_missing_source_url": 1
+  },
+  "limitations": [
+    "All 31 records are synthetic claim wording, not independent expert or human annotations.",
+    "No compatible public Python claim/evidence dataset was found and used; broad-domain fact-checking data were excluded for domain mismatch.",
+    "The dataset is small and based on a 12-passage curated Python documentation corpus; it is not representative of real AI explanations.",
+    "Contradictions are controlled polarity counterparts and may make labels lexically easy; labels reflect only the supplied passage.",
+    "Insufficient-evidence examples mean the provided passage does not establish the claim; this does not imply the claim is false.",
+    "Group integrity may produce split proportions differing from the nominal 70/15/15 target."
+  ]
+}

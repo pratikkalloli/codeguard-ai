@@ -1,0 +1,1 @@
+"""Core CodeGuard AI functionality."""

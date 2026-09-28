@@ -1,0 +1,468 @@
+{
+  "model_version": "claim-verifier-v1.0.0",
+  "dataset_version": "1.0.0-synthetic-pilot-20260926T111907013663Z",
+  "dataset_size": 15,
+  "class_distribution": {
+    "SUPPORTED": 5,
+    "CONTRADICTED": 5,
+    "INSUFFICIENT_EVIDENCE": 5
+  },
+  "data_origins": {
+    "synthetic": 15
+  },
+  "split_samples": {
+    "train": 9,
+    "validation": 3,
+    "test": 3
+  },
+  "split_class_distribution": {
+    "train": {
+      "SUPPORTED": 3,
+      "CONTRADICTED": 3,
+      "INSUFFICIENT_EVIDENCE": 3
+    },
+    "validation": {
+      "SUPPORTED": 1,
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 1
+    },
+    "test": {
+      "SUPPORTED": 1,
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 1
+    }
+  },
+  "random_seed": 42,
+  "test_metrics": {
+    "majority_baseline": {
+      "sample_count": 3,
+      "accuracy": 0.3333333333333333,
+      "precision": 0.1111111111111111,
+      "recall": 0.3333333333333333,
+      "f1": 0.3333333333333333,
+      "precision_macro": 0.1111111111111111,
+      "recall_macro": 0.3333333333333333,
+      "f1_macro": 0.16666666666666666,
+      "f1_micro": 0.3333333333333333,
+      "f1_weighted": 0.16666666666666666,
+      "per_class": {
+        "SUPPORTED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "CONTRADICTED": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "support": 1
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "classification_report": {
+        "SUPPORTED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1.0
+        },
+        "CONTRADICTED": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1-score": 0.5,
+          "support": 1.0
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1.0
+        },
+        "accuracy": 0.3333333333333333,
+        "macro avg": {
+          "precision": 0.1111111111111111,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.16666666666666666,
+          "support": 3.0
+        },
+        "weighted avg": {
+          "precision": 0.1111111111111111,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.16666666666666666,
+          "support": 3.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "errors": [
+        {
+          "claim": "Python strings can be modified in place after creation.",
+          "evidence": "",
+          "actual_label": "INSUFFICIENT_EVIDENCE",
+          "predicted_label": "CONTRADICTED",
+          "confidence": null
+        },
+        {
+          "claim": "Python dictionaries preserve insertion order.",
+          "evidence": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+          "actual_label": "SUPPORTED",
+          "predicted_label": "CONTRADICTED",
+          "confidence": null
+        }
+      ],
+      "error_categories": {
+        "INSUFFICIENT_EVIDENCE → CONTRADICTED": 1,
+        "SUPPORTED → CONTRADICTED": 1
+      }
+    },
+    "logistic_regression_tfidf": {
+      "sample_count": 3,
+      "accuracy": 0.3333333333333333,
+      "precision": 0.16666666666666666,
+      "recall": 0.3333333333333333,
+      "f1": 0.3333333333333333,
+      "precision_macro": 0.16666666666666666,
+      "recall_macro": 0.3333333333333333,
+      "f1_macro": 0.2222222222222222,
+      "f1_micro": 0.3333333333333333,
+      "f1_weighted": 0.2222222222222222,
+      "per_class": {
+        "SUPPORTED": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 1
+        },
+        "CONTRADICTED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "classification_report": {
+        "SUPPORTED": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1-score": 0.6666666666666666,
+          "support": 1.0
+        },
+        "CONTRADICTED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1.0
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1.0
+        },
+        "accuracy": 0.3333333333333333,
+        "macro avg": {
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.2222222222222222,
+          "support": 3.0
+        },
+        "weighted avg": {
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.2222222222222222,
+          "support": 3.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "errors": [
+        {
+          "claim": "Python strings can be modified in place after creation.",
+          "evidence": "",
+          "actual_label": "INSUFFICIENT_EVIDENCE",
+          "predicted_label": "CONTRADICTED",
+          "confidence": 0.5127359037308792
+        },
+        {
+          "claim": "Python dictionaries do not preserve insertion order.",
+          "evidence": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+          "actual_label": "CONTRADICTED",
+          "predicted_label": "SUPPORTED",
+          "confidence": 0.5188683720019744
+        }
+      ],
+      "error_categories": {
+        "INSUFFICIENT_EVIDENCE → CONTRADICTED": 1,
+        "CONTRADICTED → SUPPORTED": 1
+      }
+    },
+    "linear_svm_tfidf": {
+      "sample_count": 3,
+      "accuracy": 0.6666666666666666,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666,
+      "precision_macro": 0.5,
+      "recall_macro": 0.6666666666666666,
+      "f1_macro": 0.5555555555555555,
+      "f1_micro": 0.6666666666666666,
+      "f1_weighted": 0.5555555555555555,
+      "per_class": {
+        "SUPPORTED": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 1
+        },
+        "CONTRADICTED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        }
+      },
+      "classification_report": {
+        "SUPPORTED": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1-score": 0.6666666666666666,
+          "support": 1.0
+        },
+        "CONTRADICTED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 1.0
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "accuracy": 0.6666666666666666,
+        "macro avg": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.5555555555555555,
+          "support": 3.0
+        },
+        "weighted avg": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.5555555555555555,
+          "support": 3.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "errors": [
+        {
+          "claim": "Python dictionaries do not preserve insertion order.",
+          "evidence": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+          "actual_label": "CONTRADICTED",
+          "predicted_label": "SUPPORTED",
+          "confidence": null
+        }
+      ],
+      "error_categories": {
+        "CONTRADICTED → SUPPORTED": 1
+      }
+    }
+  },
+  "cross_validation": {
+    "majority_baseline": {
+      "status": "not applicable"
+    },
+    "logistic_regression_tfidf": {
+      "status": "computed on training partition only",
+      "strategy": "StratifiedGroupKFold; proposition/near-duplicate groups stay within one fold",
+      "folds": 3,
+      "mean_accuracy": 0.8888888888888888,
+      "accuracy_std": 0.15713484026367724,
+      "mean_macro_f1": 0.8518518518518517,
+      "macro_f1_std": 0.2095131203515697,
+      "fold_accuracy": [
+        1.0,
+        0.6666666666666666,
+        1.0
+      ],
+      "fold_macro_f1": [
+        1.0,
+        0.5555555555555555,
+        1.0
+      ]
+    },
+    "linear_svm_tfidf": {
+      "status": "computed on training partition only",
+      "strategy": "StratifiedGroupKFold; proposition/near-duplicate groups stay within one fold",
+      "folds": 3,
+      "mean_accuracy": 0.5555555555555555,
+      "accuracy_std": 0.15713484026367722,
+      "mean_macro_f1": 0.4259259259259259,
+      "macro_f1_std": 0.1833239803076234,
+      "fold_accuracy": [
+        0.6666666666666666,
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "fold_macro_f1": [
+        0.5555555555555555,
+        0.16666666666666666,
+        0.5555555555555555
+      ]
+    }
+  },
+  "confidence_threshold": {
+    "threshold": 0.909170314714529,
+    "method": "Next representable confidence above the most confident validation error; prevents that observed error from being accepted. Tiny validation set makes this provisional.",
+    "validation_count": 3,
+    "validation_correct": 2,
+    "validation_incorrect": 1,
+    "validation_predictions": [
+      {
+        "claim": "Every Python dictionary operation is thread safe in every implementation.",
+        "actual": "INSUFFICIENT_EVIDENCE",
+        "predicted": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.6545881415882122
+      },
+      {
+        "claim": "Python tuples are immutable.",
+        "actual": "SUPPORTED",
+        "predicted": "SUPPORTED",
+        "confidence": 0.7353041575556791
+      },
+      {
+        "claim": "Python tuples are mutable.",
+        "actual": "CONTRADICTED",
+        "predicted": "SUPPORTED",
+        "confidence": 0.9091703147145289
+      }
+    ]
+  },
+  "test_set_policy": "The test set was not used for model or threshold selection.",
+  "error_analysis": {
+    "majority_baseline": {
+      "errors": [
+        {
+          "claim": "Python strings can be modified in place after creation.",
+          "evidence": "",
+          "actual_label": "INSUFFICIENT_EVIDENCE",
+          "predicted_label": "CONTRADICTED",
+          "confidence": null
+        },
+        {
+          "claim": "Python dictionaries preserve insertion order.",
+          "evidence": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+          "actual_label": "SUPPORTED",
+          "predicted_label": "CONTRADICTED",
+          "confidence": null
+        }
+      ],
+      "error_categories": {
+        "INSUFFICIENT_EVIDENCE → CONTRADICTED": 1,
+        "SUPPORTED → CONTRADICTED": 1
+      }
+    },
+    "logistic_regression_tfidf": {
+      "errors": [
+        {
+          "claim": "Python strings can be modified in place after creation.",
+          "evidence": "",
+          "actual_label": "INSUFFICIENT_EVIDENCE",
+          "predicted_label": "CONTRADICTED",
+          "confidence": 0.5127359037308792
+        },
+        {
+          "claim": "Python dictionaries do not preserve insertion order.",
+          "evidence": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+          "actual_label": "CONTRADICTED",
+          "predicted_label": "SUPPORTED",
+          "confidence": 0.5188683720019744
+        }
+      ],
+      "error_categories": {
+        "INSUFFICIENT_EVIDENCE → CONTRADICTED": 1,
+        "CONTRADICTED → SUPPORTED": 1
+      }
+    },
+    "linear_svm_tfidf": {
+      "errors": [
+        {
+          "claim": "Python dictionaries do not preserve insertion order.",
+          "evidence": "Iterating over a dictionary, including list(dict), produces keys in insertion order. Calling sorted on the dictionary keys is a separate way to obtain sorted order.",
+          "actual_label": "CONTRADICTED",
+          "predicted_label": "SUPPORTED",
+          "confidence": null
+        }
+      ],
+      "error_categories": {
+        "CONTRADICTED → SUPPORTED": 1
+      }
+    }
+  },
+  "integrity_note": "All 15 data records are synthetic. Test metrics are computed on three held-out examples and are not estimates of real-world generalization."
+}

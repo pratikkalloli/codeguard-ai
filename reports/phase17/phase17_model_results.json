@@ -1,0 +1,253 @@
+{
+  "dataset": "NVIDIA OpenCodeReasoning-2 Python split (three-shard prefix)",
+  "revision": "eadf535931451525f3e5621d0f960c240bc62fd9",
+  "task": "Regression for source-recorded pass_rate; auxiliary only, not CodeGuard labels or human review",
+  "target_range": [
+    0.0,
+    1.0
+  ],
+  "seed": 1701,
+  "split_counts": {
+    "train": 37365,
+    "validation": 8144,
+    "test": 7892
+  },
+  "selected_model_by_validation_mae": "linear_svr_c0_1",
+  "models": {
+    "dummy_mean": {
+      "validation": {
+        "mae": 0.2839191427391438,
+        "rmse": 0.34434302052942023,
+        "r2": -0.0005291681807728654,
+        "spearman_rho": null,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.8029223968565815,
+        "precision": 0.8029223968565815,
+        "recall": 1.0,
+        "f1": 0.8906899135054144,
+        "macro_f1": 0.4453449567527072,
+        "weighted_f1": 0.7151548802077485,
+        "confusion_matrix_labels_0_1": [
+          [
+            0,
+            1605
+          ],
+          [
+            0,
+            6539
+          ]
+        ],
+        "roc_auc": 0.5,
+        "pr_auc": 0.8029223968565815
+      },
+      "test": {
+        "mae": 0.29932981526457064,
+        "rmse": 0.3642714841766956,
+        "r2": -0.0037932658149804066,
+        "spearman_rho": null,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.7645717181956412,
+        "precision": 0.7645717181956412,
+        "recall": 1.0,
+        "f1": 0.8665804969122505,
+        "macro_f1": 0.43329024845612524,
+        "weighted_f1": 0.6625629394790318,
+        "confusion_matrix_labels_0_1": [
+          [
+            0,
+            1858
+          ],
+          [
+            0,
+            6034
+          ]
+        ],
+        "roc_auc": 0.5,
+        "pr_auc": 0.7645717181956412
+      }
+    },
+    "ridge_a1": {
+      "validation": {
+        "mae": 0.22597055003350852,
+        "rmse": 0.30395878203081994,
+        "r2": 0.22039148153749988,
+        "spearman_rho": 0.43926649435468257,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.8337426326129665,
+        "precision": 0.8553803975325566,
+        "recall": 0.9542743538767395,
+        "f1": 0.9021251987856007,
+        "macro_f1": 0.6751864787734034,
+        "weighted_f1": 0.8126761207847223,
+        "confusion_matrix_labels_0_1": [
+          [
+            550,
+            1055
+          ],
+          [
+            299,
+            6240
+          ]
+        ],
+        "roc_auc": 0.7693862704434786,
+        "pr_auc": 0.9184713003341629
+      },
+      "test": {
+        "mae": 0.23497477651340679,
+        "rmse": 0.31585438780103253,
+        "r2": 0.24531145836192558,
+        "spearman_rho": 0.4694702118288854,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.808160162189559,
+        "precision": 0.8265895953757225,
+        "recall": 0.9479615512098111,
+        "f1": 0.883124903504709,
+        "macro_f1": 0.6740712856746159,
+        "weighted_f1": 0.7846906354032611,
+        "confusion_matrix_labels_0_1": [
+          [
+            658,
+            1200
+          ],
+          [
+            314,
+            5720
+          ]
+        ],
+        "roc_auc": 0.7711315552022572,
+        "pr_auc": 0.8983418449838629
+      }
+    },
+    "linear_svr_c0_1": {
+      "validation": {
+        "mae": 0.18414998896339294,
+        "rmse": 0.30346543726354613,
+        "r2": 0.22292013790589904,
+        "spearman_rho": 0.46341984186892493,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.8366895874263262,
+        "precision": 0.8413946782015992,
+        "recall": 0.981648570117755,
+        "f1": 0.9061264822134387,
+        "macro_f1": 0.6393839958237004,
+        "weighted_f1": 0.8009885424650277,
+        "confusion_matrix_labels_0_1": [
+          [
+            395,
+            1210
+          ],
+          [
+            120,
+            6419
+          ]
+        ],
+        "roc_auc": 0.7752608242231251,
+        "pr_auc": 0.9157288990213854
+      },
+      "test": {
+        "mae": 0.2015016977860969,
+        "rmse": 0.32384794040143955,
+        "r2": 0.2066292111777156,
+        "spearman_rho": 0.4888342147794476,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.8060060821084643,
+        "precision": 0.8074559606718558,
+        "recall": 0.9799469671859463,
+        "f1": 0.8853784532454892,
+        "macro_f1": 0.6272792554649367,
+        "weighted_f1": 0.7638507519083715,
+        "confusion_matrix_labels_0_1": [
+          [
+            448,
+            1410
+          ],
+          [
+            121,
+            5913
+          ]
+        ],
+        "roc_auc": 0.7755342171184243,
+        "pr_auc": 0.8984689896834751
+      }
+    },
+    "extra_trees_numeric": {
+      "validation": {
+        "mae": 0.2620851544097268,
+        "rmse": 0.3352421572726994,
+        "r2": 0.05165919447917733,
+        "spearman_rho": 0.2771305554977082,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.8016944990176817,
+        "precision": 0.8127540650406504,
+        "recall": 0.9784370698883621,
+        "f1": 0.8879328290888905,
+        "macro_f1": 0.5137586361747063,
+        "weighted_f1": 0.7404501228935895,
+        "confusion_matrix_labels_0_1": [
+          [
+            131,
+            1474
+          ],
+          [
+            141,
+            6398
+          ]
+        ],
+        "roc_auc": 0.6521819478527826,
+        "pr_auc": 0.8753713960026359
+      },
+      "test": {
+        "mae": 0.27805195234627766,
+        "rmse": 0.3567508332408662,
+        "r2": 0.0372269618606802,
+        "spearman_rho": 0.25381851220553303,
+        "derived_binary_target": "pass_rate >= 0.5 (analysis threshold; not an original dataset label)",
+        "accuracy": 0.7639381652306133,
+        "precision": 0.7733647922401363,
+        "recall": 0.9777925091150149,
+        "f1": 0.8636463441411111,
+        "macro_f1": 0.49264353982161635,
+        "weighted_f1": 0.6889572386100363,
+        "confusion_matrix_labels_0_1": [
+          [
+            129,
+            1729
+          ],
+          [
+            134,
+            5900
+          ]
+        ],
+        "roc_auc": 0.6308171438276035,
+        "pr_auc": 0.8294525564616967
+      }
+    }
+  },
+  "test_prediction_summary": {
+    "mean": 0.8530911928368995,
+    "std": 0.19763765828690164
+  },
+  "feature_policy": {
+    "include": [
+      "solution TF-IDF",
+      "AST/code-shape metrics",
+      "source/dataset/difficulty metadata"
+    ],
+    "exclude": [
+      "pass_rate input",
+      "QwQ critique",
+      "generated right/wrong judgement",
+      "R1 rationale",
+      "problem text (blank in release)"
+    ]
+  },
+  "limitations": [
+    "Dataset labels and solutions are generated/automated, not human-reviewed.",
+    "The release's question field is blank; this model uses solution code and metadata only.",
+    "Upstream execution pass_rate may be unavailable or noisy.",
+    "No CodeGuard Supported/Contradicted/Insufficient Evidence labels are learned.",
+    "Generalization beyond competitive-programming source distributions is unverified."
+  ],
+  "model_file": "models\\phase17\\pass_rate_predictor.joblib",
+  "preprocessing_report": "reports\\phase17_preprocessing_report.json"
+}

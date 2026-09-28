@@ -1,0 +1,8 @@
+﻿batch_id,count,partition,proposed_label_counts,topic_count,priority,pending,reviewed,disputed,adjudicated,rejected
+external_review_pool,196,external,"{""Contradicted"": 44, ""Insufficient Evidence"": 44, ""Supported"": 108}",47,External benchmark held separately,196,0,0,0,0
+phase16_9_internal,14,internal,"{""Supported"": 14}",11,varied programming concepts,14,0,0,0,0
+review_batch_002,37,internal,"{""Contradicted"": 13, ""Insufficient Evidence"": 10, ""Supported"": 14}",24,varied programming concepts,37,0,0,0,0
+review_batch_003,36,internal,"{""Contradicted"": 13, ""Insufficient Evidence"": 10, ""Supported"": 13}",27,harder and varied concepts,36,0,0,0,0
+review_batch_004,36,internal,"{""Contradicted"": 13, ""Insufficient Evidence"": 10, ""Supported"": 13}",27,harder and varied concepts,36,0,0,0,0
+review_batch_005,35,internal,"{""Contradicted"": 13, ""Insufficient Evidence"": 9, ""Supported"": 13}",27,harder and varied concepts,35,0,0,0,0
+review_batch_006,35,internal,"{""Contradicted"": 13, ""Insufficient Evidence"": 9, ""Supported"": 13}",23,harder and varied concepts,35,0,0,0,0

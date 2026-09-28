@@ -1,0 +1,35 @@
+{
+  "dataset_name": "NVIDIA OpenCodeReasoning-2 (Python split, bounded three-shard prefix)",
+  "source_url": "https://huggingface.co/datasets/nvidia/OpenCodeReasoning-2",
+  "revision": "eadf535931451525f3e5621d0f960c240bc62fd9",
+  "license": "CC BY 4.0 for the collection; each row's upstream license retained and filtered",
+  "row_license_policy": [
+    "apache-2.0",
+    "mit",
+    "cc-by-4.0"
+  ],
+  "download_timestamp": "2026-09-27T07:01:11+00:00",
+  "reported_full_python_record_count": 1398166,
+  "downloaded_files": [
+    {
+      "filename": "data\\raw\\phase17\\opencodereasoning2\\train\\python\\train-00000-of-00070.parquet",
+      "bytes": 366930945,
+      "sha256": "18f09c9b93a41d1b5c405e653889b4bf30e9a9bf18de3849c0986989a9c1f28f"
+    },
+    {
+      "filename": "data\\raw\\phase17\\opencodereasoning2\\train\\python\\train-00001-of-00070.parquet",
+      "bytes": 366805860,
+      "sha256": "21f5d72fb28af7c80b6ab4fdbcb1c8dcab98cbf0eafc2af19732bf72559a422b"
+    },
+    {
+      "filename": "data\\raw\\phase17\\opencodereasoning2\\train\\python\\train-00002-of-00070.parquet",
+      "bytes": 364609954,
+      "sha256": "170c6b7e5c5faf2d7ebf8dca0182d7a5e218069573098f7ec7768630528aecd7"
+    }
+  ],
+  "record_count": 60000,
+  "sha256": "c6c84640072ef5df3ecea86b285a7983abefe6fa7d48320ce0771fe054c0048b",
+  "sha256_method": "SHA-256 of the sorted per-shard SHA-256 hex strings concatenated in file order.",
+  "notes": "Original Parquet shards are preserved. Three contiguous shards from the pinned Python split; no CodeGuard labels are imported. Upstream license terms may additionally apply.",
+  "usable_record_count": 53401
+}

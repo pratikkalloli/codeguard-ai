@@ -1,0 +1,47 @@
+{
+  "used_public_datasets": [],
+  "used_sources": [
+    {
+      "name": "Python Documentation",
+      "url": "https://docs.python.org/3/",
+      "publisher": "Python Software Foundation",
+      "license": "Python Software Foundation License Version 2",
+      "license_url": "https://docs.python.org/3/license.html",
+      "use": "Short evidence passages and source-backed synthetic claims; URLs and sections retained.",
+      "redistributed_dataset": false
+    }
+  ],
+  "candidates": [
+    {
+      "name": "FEVER",
+      "url": "https://fever.ai/dataset/fever.html",
+      "license": "Wikipedia terms / CC BY-SA 3.0 fallback per official notice",
+      "decision": "Excluded: Wikipedia domain; evidence references need dereferencing; licensing/share-alike obligations."
+    },
+    {
+      "name": "SciFact",
+      "url": "https://github.com/allenai/scifact",
+      "license": "Annotations CC BY 4.0; abstract corpus ODC-By 1.0",
+      "decision": "Excluded: biomedical domain and labeled set lacks a robust insufficient-evidence class."
+    },
+    {
+      "name": "StaQC",
+      "url": "https://huggingface.co/datasets/koutch/staqc",
+      "license": "Dataset card CC BY 4.0; original Stack Overflow posts retain revision-specific CC BY-SA terms",
+      "decision": "Excluded: code/question pairs, not claim-evidence truth labels."
+    },
+    {
+      "name": "CoNaLa",
+      "url": "https://conala-corpus.github.io/",
+      "license": "No explicit dataset license identified on project page; Stack Overflow sourced",
+      "decision": "Excluded: intent/code pairs, no claim-evidence labels; license unclear."
+    },
+    {
+      "name": "CodeSearchNet",
+      "url": "https://github.com/github/CodeSearchNet",
+      "license": "Repository MIT; underlying samples have per-record repository licenses",
+      "decision": "Excluded: docstring/code pairs without support/contradiction/insufficient-evidence annotations."
+    }
+  ],
+  "selection_policy": "Require programming domain, explicit claim and evidence, mappable three-way labels, usable redistribution license, and traceable record-level provenance. No source met all requirements."
+}

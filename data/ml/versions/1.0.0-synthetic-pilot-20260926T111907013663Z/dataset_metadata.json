@@ -1,0 +1,113 @@
+{
+  "dataset_version": "1.0.0-synthetic-pilot-20260926T111907013663Z",
+  "created_at_utc": "2026-09-26T11:19:07+00:00",
+  "random_seed": 42,
+  "total_samples": 15,
+  "samples_per_class": {
+    "SUPPORTED": 5,
+    "CONTRADICTED": 5,
+    "INSUFFICIENT_EVIDENCE": 5
+  },
+  "data_origins": {
+    "synthetic": 15
+  },
+  "source_corpus_sha256": "3ece8bcc802394c68f880583f3f86909d9fa616a4937f790384e0e475a91c0c1",
+  "source_corpus_records": 12,
+  "label_method": "synthetic templates checked against existing explicit proposition rules; insufficient labels only for topics absent from the current corpus/rules",
+  "sampling_method": "One positive and one polarity-conflicting claim for each of the five recognized propositions, plus one independent corpus-out-of-scope topic example for each of five distinct topics. The resulting equal counts are a consequence of concept coverage, not a target class balance or population estimate.",
+  "split_strategy": "group-disjoint by proposition or out-of-scope topic; actual proportions 60/20/20 because only five independent groups per label are available",
+  "split_samples": {
+    "train": 9,
+    "validation": 3,
+    "test": 3
+  },
+  "split_class_distribution": {
+    "train": {
+      "SUPPORTED": 3,
+      "CONTRADICTED": 3,
+      "INSUFFICIENT_EVIDENCE": 3
+    },
+    "validation": {
+      "SUPPORTED": 1,
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 1
+    },
+    "test": {
+      "SUPPORTED": 1,
+      "CONTRADICTED": 1,
+      "INSUFFICIENT_EVIDENCE": 1
+    }
+  },
+  "feature_descriptions": {
+    "tfidf_text": "Word unigram/bigram TF-IDF over claim concatenated with retrieved evidence; no labels included.",
+    "claim_length": "Number of whitespace-delimited words in claim.",
+    "evidence_length": "Number of whitespace-delimited words in evidence.",
+    "keyword_overlap": "Claim token intersection divided by claim token count.",
+    "tfidf_similarity": "Retrieved lexical similarity score from the existing local retrieval index when available."
+  },
+  "analysis": {
+    "total_records": 15,
+    "class_distribution": {
+      "SUPPORTED": 5,
+      "CONTRADICTED": 5,
+      "INSUFFICIENT_EVIDENCE": 5
+    },
+    "data_origin_distribution": {
+      "synthetic": 15
+    },
+    "missing_values": {
+      "claim": 0,
+      "evidence": 1,
+      "label": 0,
+      "data_origin": 0,
+      "claim_length": 0,
+      "evidence_length": 0,
+      "tfidf_similarity": 1,
+      "keyword_overlap": 0,
+      "fact_key": 5,
+      "question_context": 0,
+      "source": 1,
+      "title": 1,
+      "source_url": 1,
+      "source_section": 1,
+      "evidence_chunk_id": 1,
+      "leakage_group": 0,
+      "label_reason": 0
+    },
+    "exact_duplicate_count_removed": 0,
+    "near_duplicate_pairs_detected": [
+      {
+        "left_index": 0,
+        "right_index": 1,
+        "claim_similarity": 0.96,
+        "evidence_similarity": 1.0
+      },
+      {
+        "left_index": 2,
+        "right_index": 3,
+        "claim_similarity": 0.9615,
+        "evidence_similarity": 1.0
+      },
+      {
+        "left_index": 4,
+        "right_index": 5,
+        "claim_similarity": 0.9263,
+        "evidence_similarity": 1.0
+      },
+      {
+        "left_index": 8,
+        "right_index": 9,
+        "claim_similarity": 0.9583,
+        "evidence_similarity": 1.0
+      }
+    ],
+    "average_claim_length_words": 6.267,
+    "average_evidence_length_words": 26.133
+  },
+  "limitations": [
+    "All records are synthetic; none are human-labeled or independent real-world examples.",
+    "Only five independent rule groups and five out-of-scope topics exist; held-out test contains only three records.",
+    "Metrics are a pipeline demonstration and must not be generalized to real explanation claims.",
+    "Dataset evidence derives from the small existing paraphrased Python documentation corpus."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "counts": {
+    "total": 389,
+    "pending": 389,
+    "reviewed": 0,
+    "disputed": 0,
+    "adjudicated": 0,
+    "rejected": 0,
+    "verified_label_count": 0,
+    "external_pending": 196,
+    "agreement_count": 0,
+    "disagreement_count": 0,
+    "agreement_rate": null
+  },
+  "origin_composition": {
+    "public_verified": 0,
+    "manually_verified": 0,
+    "synthetic_pending_review": 389,
+    "synthetic_reviewed": 0
+  },
+  "review_states_are_human_supplied": true
+}
