@@ -6,11 +6,15 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 import sqlite3
+import json
+import os
 from typing import Any
 from collections.abc import Iterator
 
 
-DEFAULT_DATABASE_PATH = Path(__file__).resolve().parents[3] / "data" / "codeguard.db"
+_DEFAULT_DATABASE_PATH = Path(__file__).resolve().parents[3] / "data" / "codeguard.db"
+_DATABASE_OVERRIDE = os.environ.get("CODEGUARD_DATABASE_PATH", "").strip()
+DEFAULT_DATABASE_PATH = Path(_DATABASE_OVERRIDE) if _DATABASE_OVERRIDE else _DEFAULT_DATABASE_PATH
 
 
 def _connect(database_path: str | Path = DEFAULT_DATABASE_PATH) -> sqlite3.Connection:
@@ -38,7 +42,42 @@ def initialize_database(database_path: str | Path = DEFAULT_DATABASE_PATH) -> No
     schema = """
     CREATE TABLE IF NOT EXISTS evaluation_sessions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        created_at TEXT NOT NULL
+        created_at TEXT NOT NULL,
+        owner_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        evaluation_name TEXT NOT NULL DEFAULT ''
+    );
+
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE COLLATE NOCASE,
+        password_hash TEXT NOT NULL,
+        role TEXT NOT NULL CHECK (role IN ('USER', 'DEVELOPER')),
+        display_name TEXT NOT NULL DEFAULT '',
+        created_at TEXT NOT NULL,
+        last_login TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS application_logs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        timestamp TEXT NOT NULL,
+        event TEXT NOT NULL,
+        level TEXT NOT NULL DEFAULT 'INFO',
+        evaluation_id TEXT NOT NULL DEFAULT '',
+        user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        component TEXT NOT NULL DEFAULT 'application',
+        duration_ms REAL,
+        status TEXT NOT NULL DEFAULT '',
+        error_type TEXT NOT NULL DEFAULT '',
+        details_json TEXT NOT NULL DEFAULT '{}'
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_application_logs_timestamp
+        ON application_logs(timestamp DESC);
+
+    CREATE TABLE IF NOT EXISTS evaluation_reports (
+        session_id INTEGER PRIMARY KEY REFERENCES evaluation_sessions(id) ON DELETE CASCADE,
+        report_json TEXT NOT NULL,
+        updated_at TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS coding_questions (
@@ -112,6 +151,17 @@ def initialize_database(database_path: str | Path = DEFAULT_DATABASE_PATH) -> No
     """
     with _database(database_path) as connection:
         connection.executescript(schema)
+        session_columns = {
+            row["name"] for row in connection.execute("PRAGMA table_info(evaluation_sessions)").fetchall()
+        }
+        if "owner_user_id" not in session_columns:
+            connection.execute(
+                "ALTER TABLE evaluation_sessions ADD COLUMN owner_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL"
+            )
+        if "evaluation_name" not in session_columns:
+            connection.execute(
+                "ALTER TABLE evaluation_sessions ADD COLUMN evaluation_name TEXT NOT NULL DEFAULT ''"
+            )
         columns = {
             row["name"] for row in connection.execute("PRAGMA table_info(test_results)").fetchall()
         }
@@ -154,6 +204,9 @@ def save_evaluation(
     explanation: str,
     model_name: str = "Manual input",
     database_path: str | Path = DEFAULT_DATABASE_PATH,
+    *,
+    owner_user_id: int | None = None,
+    evaluation_name: str = "",
 ) -> int:
     """Save an input and extraction result; return its session ID."""
     if not question.strip():
@@ -165,7 +218,8 @@ def save_evaluation(
     created_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     with _database(database_path) as connection:
         cursor = connection.execute(
-            "INSERT INTO evaluation_sessions (created_at) VALUES (?)", (created_at,)
+            "INSERT INTO evaluation_sessions (created_at, owner_user_id, evaluation_name) VALUES (?, ?, ?)",
+            (created_at, owner_user_id, evaluation_name.strip()[:200]),
         )
         session_id = int(cursor.lastrowid)
         connection.execute(
@@ -187,40 +241,81 @@ def save_evaluation(
 
 
 def list_evaluations(
-    limit: int = 100, database_path: str | Path = DEFAULT_DATABASE_PATH
+    limit: int = 100,
+    database_path: str | Path = DEFAULT_DATABASE_PATH,
+    *,
+    owner_user_id: int | None = None,
+    include_all: bool = True,
+    search: str = "",
+    offset: int = 0,
 ) -> list[dict[str, Any]]:
     """Return recent evaluation summaries, newest first."""
     initialize_database(database_path)
     with _database(database_path) as connection:
-        rows = connection.execute(
-            """SELECT s.id, s.created_at, q.question_text, r.model_name,
+        query = """SELECT s.id, s.created_at, s.evaluation_name, s.owner_user_id,
+                      q.question_text, r.model_name,
                       (SELECT COUNT(*) FROM extracted_code c
                        JOIN ai_responses ar ON ar.id = c.response_id
-                       WHERE ar.session_id = s.id) AS code_block_count
+                       WHERE ar.session_id = s.id) AS code_block_count,
+                      (SELECT COUNT(*) FROM test_results t
+                       JOIN ai_responses ar ON ar.id = t.response_id
+                       WHERE ar.session_id = s.id AND t.status = 'passed') AS tests_passed,
+                      (SELECT COUNT(*) FROM test_results t
+                       JOIN ai_responses ar ON ar.id = t.response_id
+                       WHERE ar.session_id = s.id) AS tests_total,
+                      (SELECT COUNT(*) FROM explanation_claims c
+                       JOIN ai_responses ar ON ar.id = c.response_id
+                       WHERE ar.session_id = s.id) AS claims_total
                FROM evaluation_sessions s
                JOIN coding_questions q ON q.session_id = s.id
-               JOIN ai_responses r ON r.session_id = s.id
-               ORDER BY s.id DESC LIMIT ?""",
-            (max(1, min(int(limit), 500)),),
+               JOIN ai_responses r ON r.session_id = s.id"""
+        params: list[Any] = []
+        conditions: list[str] = []
+        if owner_user_id is not None:
+            conditions.append("s.owner_user_id = ?")
+            params.append(int(owner_user_id))
+        elif not include_all:
+            conditions.append("s.owner_user_id IS NULL")
+        if search.strip():
+            conditions.append("(q.question_text LIKE ? OR r.model_name LIKE ? OR s.evaluation_name LIKE ?)")
+            needle = f"%{search.strip()[:200]}%"
+            params.extend((needle, needle, needle))
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+        query += " ORDER BY s.id DESC LIMIT ? OFFSET ?"
+        params.extend((max(1, min(int(limit), 500)), max(0, int(offset))))
+        rows = connection.execute(
+            query,
+            params,
         ).fetchall()
     return [dict(row) for row in rows]
 
 
 def get_evaluation(
-    session_id: int, database_path: str | Path = DEFAULT_DATABASE_PATH
+    session_id: int,
+    database_path: str | Path = DEFAULT_DATABASE_PATH,
+    *,
+    owner_user_id: int | None = None,
+    include_all: bool = True,
 ) -> dict[str, Any] | None:
     """Load one saved evaluation and its extracted code blocks."""
     initialize_database(database_path)
     with _database(database_path) as connection:
-        row = connection.execute(
-            """SELECT s.id, s.created_at, q.question_text, r.id AS response_id,
+        query = """SELECT s.id, s.created_at, q.question_text, r.id AS response_id,
+                      s.evaluation_name, s.owner_user_id,
                       r.model_name, r.raw_response, r.explanation_text
                FROM evaluation_sessions s
                JOIN coding_questions q ON q.session_id = s.id
                JOIN ai_responses r ON r.session_id = s.id
-               WHERE s.id = ? ORDER BY r.id LIMIT 1""",
-            (session_id,),
-        ).fetchone()
+               WHERE s.id = ?"""
+        params: list[Any] = [session_id]
+        if owner_user_id is not None:
+            query += " AND s.owner_user_id = ?"
+            params.append(int(owner_user_id))
+        elif not include_all:
+            query += " AND s.owner_user_id IS NULL"
+        query += " ORDER BY r.id LIMIT 1"
+        row = connection.execute(query, params).fetchone()
         if row is None:
             return None
         result = dict(row)
@@ -230,6 +325,46 @@ def get_evaluation(
         ).fetchall()
     result["code_blocks"] = [dict(code_row) for code_row in code_rows]
     return result
+
+
+def save_reliability_report(
+    session_id: int,
+    report: dict[str, Any],
+    database_path: str | Path = DEFAULT_DATABASE_PATH,
+) -> None:
+    """Persist the latest transparent report without changing legacy report fields."""
+    initialize_database(database_path)
+    with _database(database_path) as connection:
+        exists = connection.execute("SELECT 1 FROM evaluation_sessions WHERE id = ?", (session_id,)).fetchone()
+        if exists is None:
+            raise ValueError(f"Evaluation {session_id} does not exist.")
+        connection.execute(
+            """INSERT INTO evaluation_reports(session_id, report_json, updated_at)
+               VALUES (?, ?, ?)
+               ON CONFLICT(session_id) DO UPDATE SET report_json=excluded.report_json,
+                   updated_at=excluded.updated_at""",
+            (session_id, json.dumps(report, ensure_ascii=False), datetime.now(timezone.utc).isoformat(timespec="seconds")),
+        )
+
+
+def get_reliability_report(
+    session_id: int,
+    database_path: str | Path = DEFAULT_DATABASE_PATH,
+    *,
+    owner_user_id: int | None = None,
+    include_all: bool = True,
+) -> dict[str, Any] | None:
+    """Load a saved report after applying the same ownership filter as its evaluation."""
+    evaluation = get_evaluation(
+        session_id, database_path, owner_user_id=owner_user_id, include_all=include_all
+    )
+    if evaluation is None:
+        return None
+    with _database(database_path) as connection:
+        row = connection.execute(
+            "SELECT report_json FROM evaluation_reports WHERE session_id = ?", (session_id,)
+        ).fetchone()
+    return json.loads(row["report_json"]) if row else None
 
 
 def save_test_results(

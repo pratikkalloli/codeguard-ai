@@ -48,7 +48,7 @@ Do not train, tune, select, or report final model performance until the review q
 
 ## 10. Files created/modified
 
-Phase 16 implementation and tests: `src/codeguard/ml/phase16.py`, `src/codeguard/ml/review.py`, `tests/test_phase16_review.py`, `app.py`, and `.gitignore`.
+Phase 16 implementation and tests: `backend/src/codeguard/ml/phase16.py`, `backend/src/codeguard/ml/review.py`, `tests/unit/test_phase16_review.py`, `frontend/app.py`, and `.gitignore`.
 
 Generated workspace: `data/ml/phase16/candidates/dataset_candidates.csv`; `raw/README.md`; `processed/canonical.csv`, `verified.csv`, `pending_review.csv`, `rejected.csv`; `review/review_queue.csv`, `review_summary.json`, `reviewer_guidelines.md`, `adjudication_guidelines.md`, `review_schema.md`, and the local `reviews.sqlite3`; `external/external_test.csv`; `dataset_manifest.json`; `dataset_statistics.json`; and reports `DATASET_CANDIDATES.md`, `DATASET_CARD.md`, `LABEL_MAPPING.md`, `LICENSE_AUDIT.md`, `QUALITY_REPORT.md`, and `PHASE_16_REPORT.md`. The database is Git-ignored and stores actual user reviews.
 
@@ -57,9 +57,9 @@ Documentation updated: `docs/phases/PROJECT_PROGRESS.md`, `README.md`, and `docs
 ## 11. Verification performed
 
 - `python -m unittest discover -s tests -v`: 81 tests completed successfully; 5 Docker integration tests skipped by their default opt-in safety guard.
-- `python -m compileall -q app.py src tests`: passed.
+- `python -m compileall -q frontend backend scripts tests`: passed.
 - `python -m pip check`: no broken requirements.
-- Streamlit `AppTest` of `app.py`: zero app exceptions.
+- Streamlit `AppTest` of `frontend/app.py`: zero app exceptions.
 - No Docker integration run, live provider API call, submitted-code execution, or production model training was performed. Existing model artifacts and Phase 15 source datasets were not modified.
 
 ## 12. Next incomplete phase

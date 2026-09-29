@@ -4,8 +4,13 @@ from datetime import datetime
 import json
 import os
 from pathlib import Path
+import sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+BACKEND_SOURCE = PROJECT_ROOT / "backend" / "src"
+if str(BACKEND_SOURCE) not in sys.path:
+    sys.path.insert(0, str(BACKEND_SOURCE))
+
 import sqlite3
 import shutil
 import subprocess
@@ -258,6 +263,14 @@ def _record_response(question, response, model_name, generated_response=None):
         save_evaluation_metrics(saved["response_id"], api_metrics)
     return session_id, extracted
 
+
+from phase20_ui import render_application
+
+# Phase 20 provides role-gated pages and calls the existing CodeGuard services.
+# Keep the former research UI below as a source of preserved workflow references;
+# it is no longer a second, unauthenticated route into developer functionality.
+render_application()
+st.stop()
 
 st.set_page_config(page_title="CodeGuard AI", page_icon="🛡️", layout="wide", initial_sidebar_state="expanded")
 with st.sidebar:

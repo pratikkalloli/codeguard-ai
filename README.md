@@ -127,6 +127,7 @@ Create a virtual environment:
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
+python -m pip install -e .
 ```
 
 For development and testing, also install:
@@ -162,6 +163,38 @@ Streamlit will print the local address, normally:
 ```text
 http://localhost:8501
 ```
+
+### Accounts and access
+
+The first screen offers user registration, user login, and separate developer access. User accounts are restricted to their own evaluations, reports, comparison results, and profile. Developer pages perform role checks against the SQLite account record on every rerun; hiding a navigation item is not the authorization boundary.
+
+Passwords use salted `scrypt` hashes. They are never stored or logged in plaintext. To create the first developer account, run this once from the repository root after installing the project:
+
+```powershell
+python -m codeguard.auth_bootstrap developer@example.com
+```
+
+The command asks for the password through a hidden terminal prompt. Developer bootstrap is refused once an account with the `DEVELOPER` role exists. Normal registration can create `USER` accounts only.
+
+Existing evaluation rows are preserved by additive SQLite migrations. Rows created before account ownership was added have no owner and are visible only to developers; user accounts cannot claim or see those records.
+
+### User workspace
+
+The User interface contains Home, New Evaluation, My Evaluations, Compare, and Profile. New Evaluation accepts pasted responses or an optional OpenAI Responses API request, extracts fenced/generic/unfenced AST-valid Python, and invokes the existing static validator, restricted Docker runner, optional function-test runner, explanation/evidence verifier, Phase 17 advisory model, and unified report builder. Docker, tests, and performance are marked unavailable or not run when the actual component cannot complete. Results remain separate signals; no combined correctness score is calculated.
+
+My Evaluations is scoped by the authenticated user ID in its SQLite query, with search, status filters, sorting, pagination, and the stored detailed report. Reports include the original code, execution output, test outcomes, performance measurements, static findings, evidence-backed claims, ML metadata, and evaluation timestamps where those values were actually produced.
+
+### Developer console
+
+Developer access opens a separate console with Overview, Evaluations, Logs, System Health, Docker, ML, Evidence, Datasets, Users, and Settings. Counts and views read the local SQLite database, model metadata/artifact, corpus, dataset metadata, and log events. Health checks label unavailable components honestly. The Docker page can run a harmless Python runtime probe using the existing restrictive flags; it does not execute submitted user code as a health check.
+
+Application events are stored as structured rows in the local SQLite database. Event details redact password/secret/token-shaped fields, avoid submitted response contents, and retain at most the newest 5,000 rows with bounded detail size. The log view and all health/observability pages require a developer role.
+
+### Local configuration and privacy
+
+`.env.example` lists optional environment settings; the application does not load `.env` automatically. `CODEGUARD_DATABASE_PATH` can select a local SQLite file, `CODEGUARD_ENV` and `LOG_LEVEL` identify the local environment/view settings, and `OPENAI_API_KEY` is read only when the user chooses the OpenAI provider. Never commit real values or runtime database files.
+
+SQLite stores submitted prompts, responses, code, results, account names, password hashes, and application event metadata. Keep the local database private. This remains a local research/product prototype: Streamlit local session authentication is not enterprise identity, there is no email verification, MFA, password reset, or account deletion workflow, and Docker plus the host kernel are not a production security boundary.
 
 If you want to use the Docker-backed execution features, make sure the execution image is available:
 

@@ -15,6 +15,8 @@ from codeguard.storage import (
     save_claim_results,
     save_evaluation_metrics,
     save_test_results,
+    save_reliability_report,
+    get_reliability_report,
 )
 
 
@@ -229,6 +231,22 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(claims[0]["claim_text"], "Python lists are mutable.")
         self.assertEqual(claims[0]["source_url"], "")
         self.assertIsNone(claims[0]["retrieval_score"])
+
+    def test_owned_history_and_reports_use_additive_schema(self) -> None:
+        from codeguard.auth import register_user
+
+        owner_id = register_user("owner@example.test", "an owner password here", self.database_path)["id"]
+        session_id = save_evaluation(
+            question="Owned question", raw_response="Answer", code_blocks=[], explanation="",
+            database_path=self.database_path, owner_user_id=owner_id, evaluation_name="Example",
+        )
+        self.assertEqual(list_evaluations(database_path=self.database_path, owner_user_id=owner_id)[0]["id"], session_id)
+        self.assertEqual(list_evaluations(database_path=self.database_path, owner_user_id=7), [])
+        save_reliability_report(session_id, {"report_version": 2, "signals": {}}, self.database_path)
+        self.assertIsNone(get_reliability_report(session_id, self.database_path, owner_user_id=7))
+        self.assertEqual(
+            get_reliability_report(session_id, self.database_path, owner_user_id=owner_id)["report_version"], 2
+        )
 
 
 if __name__ == "__main__":
